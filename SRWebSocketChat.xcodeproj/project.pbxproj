@@ -37,6 +37,8 @@
 		014F0A991D1A96FE00C4CA0A /* SRChatBaseMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A981D1A96FE00C4CA0A /* SRChatBaseMessage.m */; };
 		014F0A9C1D1A976B00C4CA0A /* SRChatTextMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A9B1D1A976B00C4CA0A /* SRChatTextMessage.m */; };
 		014F0AA01D1AAD0D00C4CA0A /* SRChatTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A9F1D1AAD0D00C4CA0A /* SRChatTool.m */; };
+		016087051D1BFDE30037C772 /* SRChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 016087041D1BFDE30037C772 /* SRChatInputToolBar.m */; };
+		01D54D1A1D1C02D30039BD23 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D54D191D1C02D30039BD23 /* UIView+Extension.m */; };
 		01F8D1141D1BD40700439029 /* SRChatUserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F8D1131D1BD40700439029 /* SRChatUserInfo.m */; };
 		01F8D1181D1BE55800439029 /* SRBaseVieController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F8D1171D1BE55800439029 /* SRBaseVieController.m */; };
 		01F8D11B1D1BE58400439029 /* SRBaseNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F8D11A1D1BE58400439029 /* SRBaseNavigationController.m */; };
@@ -120,6 +122,11 @@
 		014F0A9D1D1A99C000C4CA0A /* SRChatConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRChatConfig.h; sourceTree = "<group>"; };
 		014F0A9E1D1AAD0D00C4CA0A /* SRChatTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatTool.h; sourceTree = "<group>"; };
 		014F0A9F1D1AAD0D00C4CA0A /* SRChatTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatTool.m; sourceTree = "<group>"; };
+		016087031D1BFDE30037C772 /* SRChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatInputToolBar.h; sourceTree = "<group>"; };
+		016087041D1BFDE30037C772 /* SRChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatInputToolBar.m; sourceTree = "<group>"; };
+		01D54D181D1C02D30039BD23 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
+		01D54D191D1C02D30039BD23 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
+		01D54D1B1D1C04DC0039BD23 /* SRWebSocketPrecompileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketPrecompileHeader.h; sourceTree = "<group>"; };
 		01F8D1121D1BD40700439029 /* SRChatUserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatUserInfo.h; sourceTree = "<group>"; };
 		01F8D1131D1BD40700439029 /* SRChatUserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatUserInfo.m; sourceTree = "<group>"; };
 		01F8D1161D1BE55800439029 /* SRBaseVieController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRBaseVieController.h; sourceTree = "<group>"; };
@@ -208,6 +215,7 @@
 			isa = PBXGroup;
 			children = (
 				014F0A151D1A91A400C4CA0A /* main.m */,
+				01D54D1B1D1C04DC0039BD23 /* SRWebSocketPrecompileHeader.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -249,6 +257,7 @@
 		014F0A491D1A91D100C4CA0A /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				01D54D171D1C025C0039BD23 /* Categorys */,
 				014F0A4C1D1A91EF00C4CA0A /* Models */,
 				014F0A4B1D1A91E400C4CA0A /* Controllers */,
 				014F0A4A1D1A91D900C4CA0A /* Views */,
@@ -259,8 +268,8 @@
 		014F0A4A1D1A91D900C4CA0A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				01F8D11F1D1BE5DB00439029 /* SRChatBaseCell.h */,
-				01F8D1201D1BE5DB00439029 /* SRChatBaseCell.m */,
+				016087071D1BFF140037C772 /* ChatViews */,
+				016087061D1BFF090037C772 /* ChatCells */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -406,6 +415,33 @@
 				014F0A9B1D1A976B00C4CA0A /* SRChatTextMessage.m */,
 			);
 			path = SRChatMessageModel;
+			sourceTree = "<group>";
+		};
+		016087061D1BFF090037C772 /* ChatCells */ = {
+			isa = PBXGroup;
+			children = (
+				01F8D11F1D1BE5DB00439029 /* SRChatBaseCell.h */,
+				01F8D1201D1BE5DB00439029 /* SRChatBaseCell.m */,
+			);
+			path = ChatCells;
+			sourceTree = "<group>";
+		};
+		016087071D1BFF140037C772 /* ChatViews */ = {
+			isa = PBXGroup;
+			children = (
+				016087031D1BFDE30037C772 /* SRChatInputToolBar.h */,
+				016087041D1BFDE30037C772 /* SRChatInputToolBar.m */,
+			);
+			path = ChatViews;
+			sourceTree = "<group>";
+		};
+		01D54D171D1C025C0039BD23 /* Categorys */ = {
+			isa = PBXGroup;
+			children = (
+				01D54D181D1C02D30039BD23 /* UIView+Extension.h */,
+				01D54D191D1C02D30039BD23 /* UIView+Extension.m */,
+			);
+			path = Categorys;
 			sourceTree = "<group>";
 		};
 		01F8D1151D1BE51E00439029 /* Common */ = {
@@ -560,9 +596,11 @@
 				014F0A741D1A92F200C4CA0A /* SRIOConsumer.m in Sources */,
 				014F0A1C1D1A91A400C4CA0A /* ViewController.m in Sources */,
 				014F0A9C1D1A976B00C4CA0A /* SRChatTextMessage.m in Sources */,
+				01D54D1A1D1C02D30039BD23 /* UIView+Extension.m in Sources */,
 				014F0A801D1A92F200C4CA0A /* SRWebSocket.m in Sources */,
 				014F0A731D1A92F200C4CA0A /* SRDelegateController.m in Sources */,
 				014F0AA01D1AAD0D00C4CA0A /* SRChatTool.m in Sources */,
+				016087051D1BFDE30037C772 /* SRChatInputToolBar.m in Sources */,
 				01F8D11B1D1BE58400439029 /* SRBaseNavigationController.m in Sources */,
 				014F0A7C1D1A92F200C4CA0A /* SRRandom.m in Sources */,
 				014F0A191D1A91A400C4CA0A /* AppDelegate.m in Sources */,
@@ -715,6 +753,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SRWebSocketChat/SRWebSocketPrecompileHeader.h";
 				INFOPLIST_FILE = SRWebSocketChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -728,6 +767,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GCC_PREFIX_HEADER = "$(SRCROOT)/SRWebSocketChat/SRWebSocketPrecompileHeader.h";
 				INFOPLIST_FILE = SRWebSocketChat/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
