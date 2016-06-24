@@ -124,6 +124,7 @@
 		014F0A9F1D1AAD0D00C4CA0A /* SRChatTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatTool.m; sourceTree = "<group>"; };
 		016087031D1BFDE30037C772 /* SRChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatInputToolBar.h; sourceTree = "<group>"; };
 		016087041D1BFDE30037C772 /* SRChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatInputToolBar.m; sourceTree = "<group>"; };
+		016A31501D1D083C008AB890 /* SRWebSocketConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketConfig.h; sourceTree = "<group>"; };
 		01D54D181D1C02D30039BD23 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		01D54D191D1C02D30039BD23 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		01D54D1B1D1C04DC0039BD23 /* SRWebSocketPrecompileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketPrecompileHeader.h; sourceTree = "<group>"; };
@@ -451,6 +452,7 @@
 				01F8D1171D1BE55800439029 /* SRBaseVieController.m */,
 				01F8D1191D1BE58400439029 /* SRBaseNavigationController.h */,
 				01F8D11A1D1BE58400439029 /* SRBaseNavigationController.m */,
+				016A31501D1D083C008AB890 /* SRWebSocketConfig.h */,
 			);
 			path = Common;
 			sourceTree = "<group>";

@@ -10,4 +10,6 @@
 
 @interface SRChatViewController : SRBaseVieController
 
++ (instancetype)defaultChatViewController;
+
 @end

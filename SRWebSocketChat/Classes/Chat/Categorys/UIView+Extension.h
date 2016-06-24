@@ -19,5 +19,11 @@
 - (CGFloat)es_width;
 - (CGFloat)es_height;
 - (CGSize)es_size;
+- (CGFloat)es_maxX;
+- (CGFloat)es_maxY;
+- (CGFloat)es_minX;
+- (CGFloat)es_minY;
+- (CGFloat)es_midX;
+- (CGFloat)es_midY;
 
 @end

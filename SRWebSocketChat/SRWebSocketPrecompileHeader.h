@@ -10,5 +10,6 @@
 #define SRWebSocketPrecompileHeader_h
 
 #import "UIView+Extension.h"
+#import "SRWebSocketConfig.h"
 
 #endif /* SRWebSocketPrecompileHeader_h */

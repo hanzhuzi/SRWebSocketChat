@@ -35,4 +35,34 @@
     return self.frame.size.height;
 }
 
+- (CGFloat)es_maxX
+{
+    return CGRectGetMaxX(self.frame);
+}
+
+- (CGFloat)es_maxY
+{
+    return CGRectGetMaxY(self.frame);
+}
+
+- (CGFloat)es_minX
+{
+    return CGRectGetMidX(self.frame);
+}
+
+- (CGFloat)es_minY
+{
+    return CGRectGetMidY(self.frame);
+}
+
+- (CGFloat)es_midX
+{
+    return CGRectGetMidX(self.frame);
+}
+
+- (CGFloat)es_midY
+{
+    return CGRectGetMidY(self.frame);
+}
+
 @end

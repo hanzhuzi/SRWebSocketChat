@@ -9,6 +9,7 @@
 #import "ViewController.h"
 #import "SRChatManager.h"
 #import "SRChatUserInfo.h"
+#import "SRChatViewController.h"
 
 @interface ViewController ()<SRChatManagerDelegate>
 {
@@ -27,6 +28,7 @@
 
 - (IBAction)loginAction:(id)sender {
     
+#if 0
     NSString * userName = userNameTextField.text;
     NSString * passWord = passwordTextField.text;
     
@@ -43,6 +45,10 @@
     manager.userInfo.passWord = passWord;
     manager.userInfo.room_id  = @"1";
     [manager openServer];  // 建立连接之后默认登录服务器
+#else
+    SRChatViewController * chatViewCtrl = [SRChatViewController defaultChatViewController];
+    [self.navigationController pushViewController:chatViewCtrl animated:YES];
+#endif
 }
 
 - (void)viewDidLoad {
@@ -51,6 +57,15 @@
     
     manager = [SRChatManager defaultManager];
     manager.delegate = self;
+    
+    UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
+    tapGesture.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapGesture];
+}
+
+- (void)tapAction
+{
+    [self.view endEditing:YES];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -70,8 +85,13 @@
             NSLog(@"连接关闭");
             break;
         case SRChatManagerStatusLogin:
+        {
             NSLog(@"上线");
+            SRChatViewController * chatViewCtrl = [SRChatViewController defaultChatViewController];
+            [self.navigationController pushViewController:chatViewCtrl animated:YES];
+            
             [chatManager sendMessage:@"这是一条测试消息"];
+        }
             break;
         case SRChatManagerStatusLogOff:
             NSLog(@"已下线");
