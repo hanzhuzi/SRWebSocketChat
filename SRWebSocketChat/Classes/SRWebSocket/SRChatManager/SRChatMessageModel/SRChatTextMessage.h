@@ -9,5 +9,5 @@
 #import "SRChatBaseMessage.h"
 
 @interface SRChatTextMessage : SRChatBaseMessage
-@property (nonatomic, copy) NSString * textMessage;
+@property (nonatomic, copy) NSString * textMessage; // 文本消息
 @end

@@ -8,13 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-// 消息来源类型
-typedef enum {
-    SRChatMessageFromTypeMe = 1 << 0,
-    SRChatMessageFromTypeOther = 1 << 1
-}SRChatMessageFromType;
-
 @interface SRChatBaseMessage : NSObject
-@property (nonatomic, copy)   NSString * dateText;
+@property (nonatomic, copy)   NSString * req_type;
+@property (nonatomic, copy)   NSString * from_client_id;
+@property (nonatomic, copy)   NSString * from_client_name;
+@property (nonatomic, copy)   NSString * to_client_id;
+@property (nonatomic, copy)   NSString * time;
 @property (nonatomic, assign) SRChatMessageFromType msgFromType;
+@property (nonatomic, assign) SRChatMessageSendStatus status;
 @end

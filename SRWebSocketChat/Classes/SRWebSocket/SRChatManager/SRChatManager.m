@@ -87,25 +87,26 @@ static NSInteger timeoutCount = 0;
                                  @"room_id" : _userInfo.room_id ? _userInfo.room_id : @""
                                  };
     NSString * jsonString = [SRChatTool jsonStringFromDictionary:loginInfo];
-    NSLog(@"jsonStr: %@", jsonString);
     [webSocket sendString:jsonString];
 }
 
 // 发送消息
 - (void)sendMessage:(NSString *)message
 {
+    if (_status != SRChatManagerStatusLogin) {
+        return;
+    }
+    NSLog(@"消息发送中...");
     NSDictionary * messageInfo = @{
                                    @"type" : @"say",
                                    @"from_client_id" : _userInfo.client_id,
                                    @"from_client_name" : _userInfo.client_name,
                                    @"to_client_id" : @"all",
                                    @"content" : message,
-                                   @"time" : @"2016-03-23"
+                                   @"time" : [NSString getCurrentTimeStringFromDate]
                                    };
     NSString * jsonString = [SRChatTool jsonStringFromDictionary:messageInfo];
-    if (_status == SRChatManagerStatusLogin) {
-        [webSocket sendString:jsonString];
-    }
+    [webSocket sendString:jsonString];
 }
 
 // 心跳回传
@@ -138,8 +139,17 @@ static NSInteger timeoutCount = 0;
         else {
             // 尝试重连
             NSLog(@"正在尝试重连... time(%d)", timeoutCount);
-            [self openServer];
-            ++timeoutCount; // 超时次数累计
+            if (_status == SRChatManagerStatusLogOffByUser) {
+                // 若用户手动下线，则不重连.
+                timeoutCount = 0;
+                [self closeServer];
+                [self stopTimer];
+                NSLog(@"断开与服务器的连接");
+            }
+            else {
+                [self openServer];
+                ++timeoutCount; // 超时次数累计
+            }
         }
     }
     else {
@@ -163,7 +173,7 @@ static NSInteger timeoutCount = 0;
 {
     NSLog(@"连接已关闭， reason: %@ clean: %d", reason, wasClean);
     [self closeServer];
-    _status = SRChatManagerStatusClose;
+    _status = SRChatManagerStatusLogOffByServer;
     if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didReciveChatStatusChanged:)]) {
         [self.delegate chatManager:self didReciveChatStatusChanged:_status];
     }
@@ -209,6 +219,7 @@ static NSInteger timeoutCount = 0;
         }
         else if ([type isEqualToString:@"say"]) {
             // 收到消息
+            NSLog(@"消息发送成功!");
             NSLog(@"收到一条消息: '%@' from '%@'", dict[@"content"], dict[@"from_client_name"]);
         }
         else if ([type isEqualToString:@"ping"]) {

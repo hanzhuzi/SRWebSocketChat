@@ -11,8 +11,12 @@ static const CGFloat InputTextViewMaxHeight = 60.0;
 static const CGFloat InputTextViewTopInsert = 8.0;
 
 #import "SRChatInputToolBar.h"
+#import "SRChatManager.h"
 
 @interface SRChatInputToolBar ()<UITextViewDelegate>
+{
+    SRChatManager * chatManager;
+}
 
 @property (nonatomic, strong) UITextView * inputTextView;
 
@@ -25,6 +29,7 @@ static const CGFloat InputTextViewTopInsert = 8.0;
     if (self = [super initWithFrame:frame]) {
         self.backgroundColor = ColorWithRGB(244, 244, 244);
         
+        chatManager = [SRChatManager defaultManager];
         [self addSubview:self.inputTextView];
     }
     return self;
@@ -43,6 +48,7 @@ static const CGFloat InputTextViewTopInsert = 8.0;
         _inputTextView.textAlignment = NSTextAlignmentJustified;
         _inputTextView.delegate = self;
         _inputTextView.returnKeyType = UIReturnKeySend;
+        _inputTextView.enablesReturnKeyAutomatically = YES;
     }
     return _inputTextView;
 }
@@ -76,6 +82,11 @@ static const CGFloat InputTextViewTopInsert = 8.0;
     CGSize textSize = [textView sizeThatFits:CGSizeMake(textView.es_width, 0)];
     CGFloat offSet = InputTextViewTopInsert;
     textView.scrollEnabled = (textSize.height > InputTextViewMaxHeight - offSet);
+    
+    if (textView.scrollEnabled) {
+        [textView scrollRangeToVisible:NSMakeRange(textView.text.length - 2, 1)];
+    }
+    
     textViewFrame.size.height = MAX(34.0, MIN(InputTextViewMaxHeight, textSize.height));
     CGFloat barHeight = textViewFrame.size.height + InputTextViewTopInsert * 2.0;
     if (self.delegate && [self.delegate respondsToSelector:@selector(chatInputToolBar:didReciveBarHeightChanged:)]) {
@@ -85,12 +96,23 @@ static const CGFloat InputTextViewTopInsert = 8.0;
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
 {
+    if ([textView.text isEmpty]) {
+        textView.enablesReturnKeyAutomatically = YES;
+    }
+    else {
+        textView.enablesReturnKeyAutomatically = NO;
+    }
+    
     if ([text isEqualToString:@"\n"] && range.length == 0) {
-        NSLog(@"发送");
+        // 发送操作，发送消息.
+        NSString * sendMsg = textView.text;
+        [chatManager sendMessage:sendMsg];
+        textView.text = @"";
+        [self textViewDidChange:textView];
         return NO;
     }
     else if ([text isEqualToString:@""] && range.length == 1) {
-        NSLog(@"删除");
+        // 删除操作，处理删除自定义表情操作.
         return YES;
     }
     

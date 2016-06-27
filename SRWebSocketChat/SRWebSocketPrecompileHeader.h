@@ -10,6 +10,10 @@
 #define SRWebSocketPrecompileHeader_h
 
 #import "UIView+Extension.h"
+#import "NSString+Extension.h"
 #import "SRWebSocketConfig.h"
+#import "SRChatConfig.h"
+#import "Masonry.h"
+#import "UIImageView+WebCache.h"
 
 #endif /* SRWebSocketPrecompileHeader_h */

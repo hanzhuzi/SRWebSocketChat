@@ -28,7 +28,11 @@
 
 - (IBAction)loginAction:(id)sender {
     
-#if 0
+#if 1
+    
+    UIButton * loginButton = (UIButton *)sender;
+    [loginButton setTitle:@"登录中..." forState:UIControlStateNormal];
+    
     NSString * userName = userNameTextField.text;
     NSString * passWord = passwordTextField.text;
     
@@ -37,7 +41,7 @@
     }
     
     if (!passWord || passWord.length == 0) {
-//        return;
+        //        return;
     }
     // 必须设置请求类型，用户名，密码，房间号.
     manager.userInfo.req_type = @"login";
@@ -87,14 +91,24 @@
         case SRChatManagerStatusLogin:
         {
             NSLog(@"上线");
-            SRChatViewController * chatViewCtrl = [SRChatViewController defaultChatViewController];
-            [self.navigationController pushViewController:chatViewCtrl animated:YES];
-            
-            [chatManager sendMessage:@"这是一条测试消息"];
+            __block BOOL isPushed = NO;
+            [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                if (obj && [obj isKindOfClass:[SRChatViewController class]]) {
+                    isPushed = YES;
+                    *stop = YES;
+                }
+            }];
+            if (!isPushed) {
+                SRChatViewController * chatViewCtrl = [SRChatViewController defaultChatViewController];
+                [self.navigationController pushViewController:chatViewCtrl animated:YES];
+            }
         }
             break;
-        case SRChatManagerStatusLogOff:
-            NSLog(@"已下线");
+        case SRChatManagerStatusLogOffByServer:
+            NSLog(@"网络或其他因素自动下线");
+            break;
+        case SRChatManagerStatusLogOffByUser:
+            NSLog(@"用户手动下线");
             break;
         default:
             break;

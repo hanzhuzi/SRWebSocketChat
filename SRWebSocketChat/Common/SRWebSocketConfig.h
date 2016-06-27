@@ -14,4 +14,6 @@
 green:((hex & 0xFF00) >> 8) / 255.0\
 blue:(hex & 0xFF) / 255.0 alpha:1.0]
 
+#define TextSystemFontWithSize(size)    [UIFont systemFontOfSize:(size)]
+
 #endif /* SRWebSocketConfig_h */

@@ -47,12 +47,12 @@
 
 - (CGFloat)es_minX
 {
-    return CGRectGetMidX(self.frame);
+    return CGRectGetMinX(self.frame);
 }
 
 - (CGFloat)es_minY
 {
-    return CGRectGetMidY(self.frame);
+    return CGRectGetMinY(self.frame);
 }
 
 - (CGFloat)es_midX

@@ -16,10 +16,11 @@
 
 // 聊天状态
 typedef NS_ENUM(NSInteger, SRChatManagerStatus) {
-    SRChatManagerStatusOpen   = 1 << 1,  // 与服务器连接成功
-    SRChatManagerStatusClose  = 1 << 2,  // 与服务器断开连接
-    SRChatManagerStatusLogin  = 1 << 3,  // 已登录
-    SRChatManagerStatusLogOff = 1 << 4   // 已下线
+    SRChatManagerStatusOpen           = 1 << 1,  // 与服务器连接成功
+    SRChatManagerStatusClose          = 1 << 2,  // 与服务器断开连接
+    SRChatManagerStatusLogin          = 1 << 3,  // 已登录
+    SRChatManagerStatusLogOffByServer = 1 << 4,  // 已下线
+    SRChatManagerStatusLogOffByUser   = 1 << 5 // 用户自己下线
 };
 
 @class SRChatManager;
