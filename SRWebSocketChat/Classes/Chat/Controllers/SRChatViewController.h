@@ -10,6 +10,13 @@
 
 @interface SRChatViewController : SRBaseVieController
 
-+ (instancetype)defaultChatViewController;
+/**
+ * @brief   进入聊天室 指定聊天室id
+ *
+ * @param    聊天室id
+ *
+ * @return   聊天室
+ */
++ (instancetype)chatViewControllerWithRoomID:(NSString *)roomId;
 
 @end

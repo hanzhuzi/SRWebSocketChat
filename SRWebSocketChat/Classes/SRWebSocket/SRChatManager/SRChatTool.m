@@ -34,4 +34,13 @@
     }
 }
 
++ (NSString *)getCurrentTimeStringFromDate
+{
+    NSDate * date = [NSDate date];
+    NSDateFormatter * dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    NSString * dateString = [dateFormatter stringFromDate:date];
+    return dateString;
+}
+
 @end

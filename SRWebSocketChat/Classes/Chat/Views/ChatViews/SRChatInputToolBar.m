@@ -6,12 +6,12 @@
 //  Copyright © 2016年 黯丶野火. All rights reserved.
 //
 
-static const CGFloat InputTextViewMinHeight = 30.0;
-static const CGFloat InputTextViewMaxHeight = 60.0;
-static const CGFloat InputTextViewTopInsert = 8.0;
-
 #import "SRChatInputToolBar.h"
 #import "SRChatManager.h"
+
+static const CGFloat InputTextViewMinHeight = 34.0;
+static const CGFloat InputTextViewMaxHeight = 68.0;
+static const CGFloat InputTextViewTopInsert = (InputToolBarMinHeight - InputTextViewMinHeight) * 0.5;
 
 @interface SRChatInputToolBar ()<UITextViewDelegate>
 {
@@ -38,7 +38,7 @@ static const CGFloat InputTextViewTopInsert = 8.0;
 - (UITextView *)inputTextView
 {
     if (nil == _inputTextView) {
-        _inputTextView = [[UITextView alloc] initWithFrame:CGRectMake(50.0, InputTextViewTopInsert, self.es_width - 80.0, InputTextViewMinHeight)];
+        _inputTextView = [[UITextView alloc] initWithFrame:CGRectMake(10.0, InputTextViewTopInsert, self.es_width - 20.0, InputTextViewMinHeight)];
         _inputTextView.backgroundColor = ColorWithRGB(252, 252, 252);
         _inputTextView.layer.cornerRadius = 5.0;
         _inputTextView.layer.borderColor = ColorWithRGB(234, 234, 234).CGColor;
@@ -72,6 +72,16 @@ static const CGFloat InputTextViewTopInsert = 8.0;
         self.inputTextView.frame = textViewFrame;
         [self layoutIfNeeded];
     }
+}
+
+- (void)becomeTextViewFirstResponse
+{
+    [self.inputTextView becomeFirstResponder];
+}
+
+- (void)endTextViewEdting
+{
+    [self.inputTextView resignFirstResponder];
 }
 
 #pragma mark - UITextViewDelegate

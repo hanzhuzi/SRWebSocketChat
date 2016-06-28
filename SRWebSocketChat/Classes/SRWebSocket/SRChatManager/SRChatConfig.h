@@ -13,6 +13,12 @@
 #define SRWEBSOCKET_PONGTIMERINTERVAL   20.0 // 服务器心跳时间间隔
 #define SRWEBSOCKET_TIMEOUTMAXCOUNT     5    // 最大允许超时次数
 
+// App background foreground changed notification.
+static NSString * const kApplicationWillEnterForegroundNotification = @"kApplicationWillEnterForegroundNotification";
+static NSString * const kApplicationWillEnterBackgroundNotification = @"kApplicationWillEnterBackgroundNotification";
+static NSString * const kApplicationDidEnterBackgroundNotification = @"kApplicationDidEnterBackgroundNotification";
+static NSString * const kApplicationDidEnterForegroundNotification = @"kApplicationDidEnterForegroundNotification";
+
 // 消息发送的状态
 typedef NS_ENUM(NSInteger, SRChatMessageSendStatus) {
     SRChatMessageSendStatusSending = 1 << 1,         // 发送中

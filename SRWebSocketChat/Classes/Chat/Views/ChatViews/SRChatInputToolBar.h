@@ -11,10 +11,11 @@
  *
  * @by     黯丶野火
  */
-/** 工具条最小的高度 */
-static const CGFloat InputToolBarMinHeight = 46.0;
 
 #import <UIKit/UIKit.h>
+
+/** 工具条最小的高度 */
+static const CGFloat InputToolBarMinHeight = 46.0;
 
 @class SRChatInputToolBar;
 @protocol SRChatInputToolBarDelegate <NSObject>
@@ -39,5 +40,19 @@ static const CGFloat InputToolBarMinHeight = 46.0;
  * @return
  */
 - (void)setFrame:(CGRect)frame animated:(BOOL)animated;
+
+/**
+ * @brief  弹出键盘
+ *
+ * @return
+ */
+- (void)becomeTextViewFirstResponse;
+
+/**
+ * @brief   收键盘
+ *
+ * @return
+ */
+- (void)endTextViewEdting;
 
 @end

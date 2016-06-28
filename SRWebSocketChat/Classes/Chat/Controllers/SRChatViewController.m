@@ -7,7 +7,7 @@
 //
 
 /**
- * @brief 聊天室页面
+ * @brief 聊天室
  *
  * @by    黯丶野火
  */
@@ -19,67 +19,75 @@
 #import "SRChatTextMessageRightCell.h"
 #import "TTTAttributedLabel.h"
 
-@interface SRChatViewController ()<SRChatInputToolBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
+@interface SRChatViewController ()<SRChatInputToolBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SRChatManagerDelegate>
+{
+    CGRect tempTableFrame;
+    CGFloat preOffSetY;
+    NSString * room_Id; // 聊天室id
+}
 
 @property (nonatomic, strong) UITableView * myTableView;
-@property (nonatomic, strong) NSMutableArray * messageArray;
 @property (nonatomic, strong) SRChatInputToolBar * inputToolBar;
+@property (nonatomic, assign) BOOL   keyboardShow;
+@property (nonatomic, strong) NSMutableArray * chatMessages;
+@property (nonatomic, strong) SRChatManager * chatManager;
 
 @end
 
 @implementation SRChatViewController
 
-- (void)cleanChatViewController
+- (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     self.inputToolBar.delegate = nil;
     self.inputToolBar = nil;
-}
-
-- (void)dealloc
-{
-    [self cleanChatViewController];
+    self.chatManager.delegate = nil;
 }
 
 #pragma mark - initial
 - (instancetype)init
 {
     if (self = [super init]) {
-        
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:kApplicationDidEnterBackgroundNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEndForeground) name:kApplicationDidEnterForegroundNotification object:nil];
     }
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithRoomID:(NSString *)roomId
 {
-    if (self = [super initWithCoder:aDecoder]) {
-        
+    if (self = [self init]) {
+        room_Id = roomId;
     }
     return self;
 }
 
-- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
++ (instancetype)chatViewControllerWithRoomID:(NSString *)roomId
 {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
-        
-    }
-    return self;
-}
-
-+ (instancetype)defaultChatViewController
-{
-    static SRChatViewController * chatViewCtrl = nil;
-    static dispatch_once_t onceToken = 0l;
-    dispatch_once(&onceToken, ^{
-        if (!chatViewCtrl) {
-            chatViewCtrl = [[SRChatViewController alloc] init];
-        }
-    });
-    
+    SRChatViewController * chatViewCtrl = [[SRChatViewController alloc] initWithRoomID:roomId];
     return chatViewCtrl;
 }
 
 #pragma mark - getter & setter
+
+- (SRChatManager *)chatManager
+{
+    _chatManager = [SRChatManager defaultManager];
+    if (!_chatManager.delegate) {
+        _chatManager.delegate = self;
+    }
+    return _chatManager;
+}
+
+- (NSMutableArray *)chatMessages
+{
+    if (_chatMessages == nil) {
+        _chatMessages = [NSMutableArray arrayWithArray:[SRChatManager defaultManager].chatMessages];
+    }
+    return _chatMessages;
+}
 
 - (SRChatInputToolBar *)inputToolBar
 {
@@ -97,6 +105,7 @@
         _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64.0, self.view.es_width, self.view.es_height - 64.0 - InputToolBarMinHeight) style:UITableViewStylePlain];
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
+        _myTableView.bounces = YES;
         _myTableView.backgroundColor = ColorWithRGB(234, 234, 234);
         _myTableView.separatorColor = [UIColor clearColor];
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -105,6 +114,7 @@
         [_myTableView registerClass:[SRChatTextMessageLeftCell class] forCellReuseIdentifier:@"SRChatTextMessageLeftCell"];
         [_myTableView registerClass:[SRChatTextMessageRightCell class] forCellReuseIdentifier:@"SRChatTextMessageRightCell"];
         _myTableView.tableFooterView = [[UIView alloc] init];
+        tempTableFrame = _myTableView.frame;
     }
     return _myTableView;
 }
@@ -121,7 +131,19 @@
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
-    [self.view endEditing:YES];
+    [self.inputToolBar endTextViewEdting];
+}
+
+- (void)applicationDidEnterBackground
+{
+    NSLog(@"应用程序已经进入后台");
+    [self.inputToolBar endTextViewEdting];
+}
+
+- (void)applicationDidEndForeground
+{
+    NSLog(@"应用程序已经进入前台");
+    [self.inputToolBar becomeTextViewFirstResponse];
 }
 
 - (void)keyboardWillShow:(NSNotification *)notification
@@ -133,28 +155,36 @@
     __weak __typeof(self) weakSelf = self;
     CGRect inputFrame = CGRectMake(0.0, keyboardFrame.origin.y - self.inputToolBar.es_height, self.inputToolBar.es_width, self.inputToolBar.es_height);
     
-    CGRect tableFrame = self.myTableView.frame;
-    tableFrame.origin.y -= keyboardFrame.size.height;
+    CGRect tableFrame = tempTableFrame;
+    tableFrame.size.height -= keyboardFrame.size.height;
     
     void (^animate) (void) = ^{
         weakSelf.inputToolBar.frame = inputFrame;
         weakSelf.myTableView.frame = tableFrame;
+        // 滚动和动画同时进行.
+        [weakSelf.myTableView reloadData];
+        // 滚动到最后row
+        if (weakSelf.chatMessages.count > 0) {
+            [weakSelf.myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:weakSelf.chatMessages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        }
     };
     
     [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveLinear animations:animate completion:^(BOOL finished) {
-        [weakSelf.myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:9 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+        weakSelf.keyboardShow = YES;
     }];
 }
 
 - (void)keyboardWillHidden:(NSNotification *)notification
 {
+    if (!_keyboardShow) {
+        return;
+    }
     NSDictionary * userInfo = [notification userInfo];
     CGRect keyboardFrame = [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     CGRect inputFrame = CGRectMake(0.0, keyboardFrame.origin.y - self.inputToolBar.es_height, self.inputToolBar.es_width, self.inputToolBar.es_height);
     
-    CGRect tableFrame = self.myTableView.frame;
-    tableFrame.origin.y += keyboardFrame.size.height;
+    CGRect tableFrame = tempTableFrame;
     
     __weak __typeof(self) weakSelf = self;
     void (^animate)(void) = ^{
@@ -163,7 +193,7 @@
     };
     
     [UIView animateWithDuration:duration delay:0.0 options:UIViewAnimationOptionCurveLinear animations:animate completion:^(BOOL finished) {
-        
+        weakSelf.keyboardShow = NO;
     }];
 }
 
@@ -178,33 +208,78 @@
     
     self.navigationItem.title = @"聊天室";
     [self setupGestures];
+    self.chatManager.delegate = self;
     [self.view addSubview:self.myTableView];
     [self.view addSubview:self.inputToolBar];
+    preOffSetY = -1000.0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHidden:) name:UIKeyboardWillHideNotification object:nil];
+    // 从用户体验来讲，进入聊天页面谈键盘很不错，但是使用第三方键盘，如搜狗输入法等，体验将大打折扣，键盘的监听会有延时。
+    // 因此在这里是收键盘.
+    [self.inputToolBar endTextViewEdting];
+    [self.view endEditing:YES];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [[SRChatManager defaultManager] closeServer];
-    [SRChatManager defaultManager].status = SRChatManagerStatusLogOffByUser; // 用户自己下线
-}
-
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
+    [self.chatManager closeServer];
+    self.chatManager.status = SRChatManagerStatusLogOffByUser; // 用户自己下线
 }
 
 #pragma mark - delegates methods.
+
+#pragma mark - SRChatManagerDelegate
+
+- (void)chatManager:(SRChatManager *)chatManager didReciveChatStatusChanged:(SRChatManagerStatus)status
+{
+    switch (status) {
+        case SRChatManagerStatusOpen:
+            NSLog(@"连接成功");
+            break;
+        case SRChatManagerStatusClose:
+            NSLog(@"连接关闭");
+            break;
+        case SRChatManagerStatusLogin:
+        {
+            NSLog(@"上线");
+        }
+            break;
+        case SRChatManagerStatusLogOffByServer:
+            NSLog(@"网络或其他因素自动下线");
+            break;
+        case SRChatManagerStatusLogOffByUser:
+            NSLog(@"用户手动下线");
+            break;
+        default:
+            break;
+    }
+}
+
+// 收到消息
+- (void)chatManager:(SRChatManager *)chatManager didReciveNewMessage:(SRChatTextMessage *)textMessage
+{
+    [self.chatMessages addObject:textMessage];
+    [self.myTableView reloadData];
+    // 滚动到最后row
+    if (self.chatMessages.count > 0) {
+        [self.myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.chatMessages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+}
+
+// 发送消息
+- (void)chatManager:(SRChatManager *)chatManager didSendNewMessage:(SRChatTextMessage *)textMessage
+{
+    [self.chatMessages addObject:textMessage];
+    [self.myTableView reloadData];
+    // 滚动到最后row
+    if (self.chatMessages.count > 0) {
+        [self.myTableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.chatMessages.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+    }
+}
 
 #pragma mark - UITableViewDelegate & UITableViewDataSource
 
@@ -215,7 +290,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.chatMessages.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -270,6 +345,32 @@
     return 0.0001;
 }
 
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([scrollView isEqual:self.myTableView]) {
+        CGFloat offSetY = self.myTableView.contentOffset.y;
+        if (offSetY != preOffSetY) {
+            if (preOffSetY > offSetY) {
+                if (self.keyboardShow) {
+                    [self.inputToolBar endTextViewEdting];
+                    self.keyboardShow = NO;
+                }
+            }
+            else {
+                CGFloat contentOffSetY = self.myTableView.contentSize.height - self.myTableView.es_height;
+                if (offSetY > contentOffSetY + 70.0) {
+                    if (!self.keyboardShow) {
+//                        [self.inputToolBar becomeTextViewFirstResponse];
+                    }
+                }
+            }
+            preOffSetY = offSetY;
+        }
+    }
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
@@ -296,6 +397,5 @@
     barFrame.origin.y = barFrame.origin.y - offSet;
     [self.inputToolBar setFrame:barFrame animated:YES];
 }
-
 
 @end

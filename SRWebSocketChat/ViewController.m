@@ -13,24 +13,26 @@
 
 @interface ViewController ()<SRChatManagerDelegate>
 {
-    SRChatManager * manager;
     __weak IBOutlet UITextField *userNameTextField;
     __weak IBOutlet UITextField *passwordTextField;
+    __weak IBOutlet UIButton *loginButton;
 }
+
+@property (nonatomic, strong) SRChatManager * chatManager;
+
 @end
 
 @implementation ViewController
 
-- (void)viewWillAppear:(BOOL)animated
+- (void)dealloc
 {
-    [super viewWillAppear:animated];
+    self.chatManager.delegate = nil;
 }
 
 - (IBAction)loginAction:(id)sender {
     
 #if 1
     
-    UIButton * loginButton = (UIButton *)sender;
     [loginButton setTitle:@"登录中..." forState:UIControlStateNormal];
     
     NSString * userName = userNameTextField.text;
@@ -44,23 +46,35 @@
         //        return;
     }
     // 必须设置请求类型，用户名，密码，房间号.
-    manager.userInfo.req_type = @"login";
-    manager.userInfo.userName = userName;
-    manager.userInfo.passWord = passWord;
-    manager.userInfo.room_id  = @"1";
-    [manager openServer];  // 建立连接之后默认登录服务器
+    self.chatManager.userInfo.req_type = @"login";
+    self.chatManager.userInfo.userName = userName;
+    self.chatManager.userInfo.passWord = passWord;
+    self.chatManager.userInfo.room_id  = @"1";
+    [self.chatManager openServer];  // 建立连接之后默认登录服务器
 #else
-    SRChatViewController * chatViewCtrl = [SRChatViewController defaultChatViewController];
-    [self.navigationController pushViewController:chatViewCtrl animated:YES];
+
 #endif
+}
+
+- (SRChatManager *)chatManager
+{
+    _chatManager = [SRChatManager defaultManager];
+    if (!_chatManager.delegate) {
+        _chatManager.delegate = self;
+    }
+    return _chatManager;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
-    
-    manager = [SRChatManager defaultManager];
-    manager.delegate = self;
     
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     tapGesture.numberOfTapsRequired = 1;
@@ -84,6 +98,7 @@
     switch (status) {
         case SRChatManagerStatusOpen:
             NSLog(@"连接成功");
+            [loginButton setTitle:@"连接服务器成功" forState:UIControlStateNormal];
             break;
         case SRChatManagerStatusClose:
             NSLog(@"连接关闭");
@@ -91,6 +106,7 @@
         case SRChatManagerStatusLogin:
         {
             NSLog(@"上线");
+            [loginButton setTitle:@"登录成功" forState:UIControlStateNormal];
             __block BOOL isPushed = NO;
             [self.navigationController.viewControllers enumerateObjectsUsingBlock:^(__kindof UIViewController * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 if (obj && [obj isKindOfClass:[SRChatViewController class]]) {
@@ -99,7 +115,7 @@
                 }
             }];
             if (!isPushed) {
-                SRChatViewController * chatViewCtrl = [SRChatViewController defaultChatViewController];
+                SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
                 [self.navigationController pushViewController:chatViewCtrl animated:YES];
             }
         }

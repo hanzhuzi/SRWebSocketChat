@@ -19,11 +19,4 @@
  */
 - (BOOL)isEmpty;
 
-/**
- * @brief   将当前时间转为时间字符串
- *
- * @return  时间格式化字符串 (格式：2016-06-22 16:15:36)
- */
-+ (NSString *)getCurrentTimeStringFromDate;
-
 @end

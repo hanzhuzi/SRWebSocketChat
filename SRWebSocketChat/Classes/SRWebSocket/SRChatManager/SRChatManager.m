@@ -19,7 +19,6 @@ static NSInteger timeoutCount = 0;
 @interface SRChatManager ()<SRWebSocketDelegate>
 {
     SRWebSocket * webSocket;
-    NSMutableArray <SRChatTextMessage *> * chatMessages;
     NSTimer * countTimer;
 }
 
@@ -39,7 +38,7 @@ static NSInteger timeoutCount = 0;
 {
     if (self = [super init]) {
         _status = SRChatManagerStatusClose;
-        chatMessages = [NSMutableArray arrayWithCapacity:10];
+        _chatMessages = [NSMutableArray arrayWithCapacity:10];
         _userInfo = [SRChatUserInfo sharedUserInfo];
     }
     return self;
@@ -97,16 +96,29 @@ static NSInteger timeoutCount = 0;
         return;
     }
     NSLog(@"消息发送中...");
+    
     NSDictionary * messageInfo = @{
                                    @"type" : @"say",
                                    @"from_client_id" : _userInfo.client_id,
                                    @"from_client_name" : _userInfo.client_name,
                                    @"to_client_id" : @"all",
                                    @"content" : message,
-                                   @"time" : [NSString getCurrentTimeStringFromDate]
+                                   @"time" : [SRChatTool getCurrentTimeStringFromDate]
                                    };
     NSString * jsonString = [SRChatTool jsonStringFromDictionary:messageInfo];
     [webSocket sendString:jsonString];
+
+    SRChatTextMessage * textMsg = [[SRChatTextMessage alloc] init];
+    textMsg.req_type = @"say";
+    textMsg.from_client_id = _userInfo.client_id;
+    textMsg.from_client_name = _userInfo.client_name;
+    textMsg.to_client_id = @"all";
+    textMsg.textMessage = message;
+    textMsg.time = [SRChatTool getCurrentTimeStringFromDate];
+    [_chatMessages addObject:textMsg];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didSendNewMessage:)]) {
+        [self.delegate chatManager:self didSendNewMessage:textMsg];
+    }
 }
 
 // 心跳回传
@@ -219,7 +231,20 @@ static NSInteger timeoutCount = 0;
         }
         else if ([type isEqualToString:@"say"]) {
             // 收到消息
-            NSLog(@"消息发送成功!");
+            if (![dict[@"from_client_id"] isEqualToString:_userInfo.client_id]) {
+                SRChatTextMessage * textMsg = [[SRChatTextMessage alloc] init];
+                textMsg.req_type = @"say";
+                textMsg.from_client_id = dict[@"from_client_id"];
+                textMsg.from_client_name = dict[@"client_name"];
+                textMsg.to_client_id = @"all";
+                textMsg.textMessage = dict[@"content"];
+                textMsg.time = dict[@"time"];
+                [_chatMessages addObject:textMsg];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didReciveNewMessage:)]) {
+                    [self.delegate chatManager:self didReciveNewMessage:textMsg];
+                }
+            }
+            
             NSLog(@"收到一条消息: '%@' from '%@'", dict[@"content"], dict[@"from_client_name"]);
         }
         else if ([type isEqualToString:@"ping"]) {
