@@ -16,4 +16,5 @@
 @property (nonatomic, copy)   NSString * time;
 @property (nonatomic, assign) SRChatMessageFromType msgFromType;
 @property (nonatomic, assign) SRChatMessageSendStatus status;
+@property (nonatomic, assign) CGFloat heightForCell;
 @end

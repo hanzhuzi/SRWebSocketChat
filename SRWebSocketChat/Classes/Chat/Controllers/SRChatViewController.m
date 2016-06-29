@@ -18,6 +18,7 @@
 #import "SRChatTextMessageLeftCell.h"
 #import "SRChatTextMessageRightCell.h"
 #import "TTTAttributedLabel.h"
+#import "SRChatTextMessage.h"
 
 @interface SRChatViewController ()<SRChatInputToolBarDelegate, UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UIScrollViewDelegate, SRChatManagerDelegate>
 {
@@ -85,6 +86,10 @@
 {
     if (_chatMessages == nil) {
         _chatMessages = [NSMutableArray arrayWithArray:[SRChatManager defaultManager].chatMessages];
+        
+        for (SRChatTextMessage * textMessage in _chatMessages) {
+            [self calculateCellHeightWithTextMessage:textMessage];
+        }
     }
     return _chatMessages;
 }
@@ -128,6 +133,31 @@
 }
 
 #pragma mark - Actions
+
+#pragma mark  计算cell高度
+- (void)calculateCellHeightWithTextMessage:(SRChatTextMessage *)textMessage
+{
+    switch (textMessage.msgFromType) {
+        case SRChatMessageFromTypeMe:
+        {
+            textMessage.heightForCell = [SRChatTextMessageRightCell calculateSRChatTextMessageRightCellHeightWithTextMessage:textMessage];
+        }
+            break;
+        case SRChatMessageFromTypeOther:
+        {
+            // 接收的消息
+            textMessage.heightForCell = [SRChatTextMessageLeftCell calculateSRChatTextMessageLeftCellHeightWithTextMessage:textMessage];
+        }
+            break;
+        case SRChatMessageFromTypeSystem:
+        {
+            // 系统消息
+        }
+            break;
+        default:
+            break;
+    }
+}
 
 - (void)tapAction:(UITapGestureRecognizer *)tap
 {
@@ -262,6 +292,7 @@
 // 收到消息
 - (void)chatManager:(SRChatManager *)chatManager didReciveNewMessage:(SRChatTextMessage *)textMessage
 {
+    [self calculateCellHeightWithTextMessage:textMessage];
     [self.chatMessages addObject:textMessage];
     [self.myTableView reloadData];
     // 滚动到最后row
@@ -273,6 +304,7 @@
 // 发送消息
 - (void)chatManager:(SRChatManager *)chatManager didSendNewMessage:(SRChatTextMessage *)textMessage
 {
+    [self calculateCellHeightWithTextMessage:textMessage];
     [self.chatMessages addObject:textMessage];
     [self.myTableView reloadData];
     // 滚动到最后row
@@ -295,39 +327,94 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row % 2 == 0) {
-        SRChatTextMessageLeftCell * leftTextCell = [tableView dequeueReusableCellWithIdentifier:@"SRChatTextMessageLeftCell"];
+    if (indexPath.row < self.chatMessages.count) {
+        SRChatTextMessage * message = self.chatMessages[indexPath.row];
         
-        if (!leftTextCell) {
-            leftTextCell = [[SRChatTextMessageLeftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SRChatTextMessageLeftCell"];
+        switch (message.msgFromType) {
+            case SRChatMessageFromTypeMe:
+            {
+                SRChatTextMessageRightCell * rightTextCell = [tableView dequeueReusableCellWithIdentifier:@"SRChatTextMessageRightCell"];
+                
+                if (!rightTextCell) {
+                    rightTextCell = [[SRChatTextMessageRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SRChatTextMessageRightCell"];
+                }
+                
+                rightTextCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                return rightTextCell;
+            }
+                break;
+            case SRChatMessageFromTypeOther:
+            {
+                // 接收的消息
+                // 发送的消息
+                SRChatTextMessageLeftCell * leftTextCell = [tableView dequeueReusableCellWithIdentifier:@"SRChatTextMessageLeftCell"];
+                
+                if (!leftTextCell) {
+                    leftTextCell = [[SRChatTextMessageLeftCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SRChatTextMessageLeftCell"];
+                }
+                
+                leftTextCell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                return leftTextCell;
+            }
+                break;
+            case SRChatMessageFromTypeSystem:
+            {
+                // 系统消息
+                return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+            }
+                break;
+            default:
+                break;
         }
-        
-        leftTextCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return leftTextCell;
     }
     else {
-        SRChatTextMessageRightCell * rightTextCell = [tableView dequeueReusableCellWithIdentifier:@"SRChatTextMessageRightCell"];
-        
-        if (!rightTextCell) {
-            rightTextCell = [[SRChatTextMessageRightCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SRChatTextMessageRightCell"];
-        }
-        
-        rightTextCell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
-        return rightTextCell;
+        return [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
     }
-
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row >= self.chatMessages.count) {
+        return;
+    }
     
+    SRChatTextMessage * message = self.chatMessages[indexPath.row];
+    
+    switch (message.msgFromType) {
+        case SRChatMessageFromTypeMe:
+        {
+            SRChatTextMessageRightCell * rightTextCell = (SRChatTextMessageRightCell *)cell;
+            [rightTextCell configurationSRChatTextMessageRightCellWithSRchatTextMessage:message];
+        }
+            break;
+        case SRChatMessageFromTypeOther:
+        {
+            // 接收的消息
+            // 发送的消息
+            SRChatTextMessageLeftCell * leftTextCell = (SRChatTextMessageLeftCell *)cell;
+            [leftTextCell configurationSRChatTextMessageLeftCellWithSRchatTextMessage:message];
+        }
+            break;
+        case SRChatMessageFromTypeSystem:
+        {
+            // 系统消息
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 150.0;
+    if (indexPath.row >= self.chatMessages.count) {
+        return 0.0;
+    }
+    
+    SRChatTextMessage * message = self.chatMessages[indexPath.row];
+    return message.heightForCell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

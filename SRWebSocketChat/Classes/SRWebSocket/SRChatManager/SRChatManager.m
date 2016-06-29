@@ -115,7 +115,7 @@ static NSInteger timeoutCount = 0;
     textMsg.to_client_id = @"all";
     textMsg.textMessage = message;
     textMsg.time = [SRChatTool getCurrentTimeStringFromDate];
-    [_chatMessages addObject:textMsg];
+    textMsg.msgFromType = SRChatMessageFromTypeMe;
     if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didSendNewMessage:)]) {
         [self.delegate chatManager:self didSendNewMessage:textMsg];
     }
@@ -220,26 +220,29 @@ static NSInteger timeoutCount = 0;
         NSDictionary * dict = [SRChatTool dictionaryFromJSONString:string];
         NSString * type = dict[@"type"];
         if ([type isEqualToString:@"login"]) {
-            // 收到登录成功的消息
-            _status = SRChatManagerStatusLogin;
-            _userInfo.client_id = dict[@"client_id"];
-            _userInfo.client_name = dict[@"client_name"];
-            _userInfo.client_list = dict[@"client_list"];
-            if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didReciveChatStatusChanged:)]) {
-                [self.delegate chatManager:self didReciveChatStatusChanged:_status];
+            if (_status != SRChatManagerStatusLogin) {
+                // 收到登录成功的消息
+                _status = SRChatManagerStatusLogin;
+                _userInfo.client_id = dict[@"client_id"];
+                _userInfo.client_name = dict[@"client_name"];
+                _userInfo.client_list = dict[@"client_list"];
+                if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didReciveChatStatusChanged:)]) {
+                    [self.delegate chatManager:self didReciveChatStatusChanged:_status];
+                }
             }
         }
         else if ([type isEqualToString:@"say"]) {
             // 收到消息
-            if (![dict[@"from_client_id"] isEqualToString:_userInfo.client_id]) {
+            if (![dict[@"from_client_name"] isEqualToString:_userInfo.client_name]) {
                 SRChatTextMessage * textMsg = [[SRChatTextMessage alloc] init];
+#warning 这里等后台数据确定了可以优化，将数据解析封装到SRChatTextMessage
                 textMsg.req_type = @"say";
                 textMsg.from_client_id = dict[@"from_client_id"];
-                textMsg.from_client_name = dict[@"client_name"];
+                textMsg.from_client_name = dict[@"from_client_name"];
                 textMsg.to_client_id = @"all";
                 textMsg.textMessage = dict[@"content"];
                 textMsg.time = dict[@"time"];
-                [_chatMessages addObject:textMsg];
+                textMsg.msgFromType = SRChatMessageFromTypeOther;
                 if (self.delegate && [self.delegate respondsToSelector:@selector(chatManager:didReciveNewMessage:)]) {
                     [self.delegate chatManager:self didReciveNewMessage:textMsg];
                 }

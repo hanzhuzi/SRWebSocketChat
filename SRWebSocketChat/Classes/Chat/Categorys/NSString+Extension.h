@@ -19,4 +19,13 @@
  */
 - (BOOL)isEmpty;
 
+/**
+ * @brief  计算富文本的size（适应UILabel的size）
+ *
+ * @param  lineSpace 行间距
+ * @return UILabel的size
+ */
+- (CGSize)calculateAttributesSizeWithConstrainedToSize: (CGSize)size
+                                            attributes:(NSDictionary *)attributes
+                                             lineSpace: (CGFloat)lineSpace;
 @end

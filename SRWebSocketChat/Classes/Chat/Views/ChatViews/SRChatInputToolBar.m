@@ -48,6 +48,7 @@ static const CGFloat InputTextViewTopInsert = (InputToolBarMinHeight - InputText
         _inputTextView.textAlignment = NSTextAlignmentJustified;
         _inputTextView.delegate = self;
         _inputTextView.returnKeyType = UIReturnKeySend;
+        _inputTextView.autocapitalizationType = UITextAutocapitalizationTypeNone;
         _inputTextView.enablesReturnKeyAutomatically = YES;
     }
     return _inputTextView;

@@ -9,6 +9,7 @@
 #import "SRChatBaseCell.h"
 
 @class TTTAttributedLabel;
+@class SRChatTextMessage;
 @interface SRChatTextMessageRightCell : SRChatBaseCell
 
 @property (nonatomic, strong) UIImageView * headerImageView; // 头像
@@ -17,4 +18,6 @@
 @property (nonatomic, strong) UIImageView * bubbleImageView; // 气泡
 @property (nonatomic, strong) UILabel * timeLabel; // 时间
 
+- (void)configurationSRChatTextMessageRightCellWithSRchatTextMessage:(SRChatTextMessage *)message;
++ (CGFloat)calculateSRChatTextMessageRightCellHeightWithTextMessage:(SRChatTextMessage *)message;
 @end
