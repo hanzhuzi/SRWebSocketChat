@@ -97,7 +97,7 @@
 - (SRChatInputToolBar *)inputToolBar
 {
     if (nil == _inputToolBar) {
-        _inputToolBar = [[SRChatInputToolBar alloc] initWithFrame:CGRectMake(0, self.view.es_maxY - InputToolBarMinHeight, self.view.es_width, InputToolBarMinHeight)];
+        _inputToolBar = [[SRChatInputToolBar alloc] initWithFrame:CGRectMake(0, self.myTableView.es_maxY, self.view.es_width, InputToolBarMinHeight)];
         _inputToolBar.backgroundColor = ColorWithRGB(245, 245, 245);
         _inputToolBar.delegate = self;
     }
@@ -107,12 +107,11 @@
 - (UITableView *)myTableView
 {
     if (nil == _myTableView) {
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64.0, self.view.es_width, self.view.es_height - 64.0 - InputToolBarMinHeight) style:UITableViewStylePlain];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.translucent ? 64.0 : 0.0, self.view.es_width, self.view.es_maxY - InputToolBarMinHeight - 64.0) style:UITableViewStylePlain];
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         _myTableView.bounces = YES;
         _myTableView.backgroundColor = ColorWithRGB(234, 234, 234);
-        _myTableView.separatorColor = [UIColor clearColor];
         _myTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _myTableView.showsHorizontalScrollIndicator = NO;
         _myTableView.showsVerticalScrollIndicator = NO;
@@ -183,10 +182,10 @@
     CGFloat duration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
     
     __weak __typeof(self) weakSelf = self;
-    CGRect inputFrame = CGRectMake(0.0, keyboardFrame.origin.y - self.inputToolBar.es_height, self.inputToolBar.es_width, self.inputToolBar.es_height);
-    
     CGRect tableFrame = tempTableFrame;
     tableFrame.size.height -= keyboardFrame.size.height;
+    
+    CGRect inputFrame = CGRectMake(0.0, CGRectGetMaxY(tableFrame), self.inputToolBar.es_width, self.inputToolBar.es_height);
     
     void (^animate) (void) = ^{
         weakSelf.inputToolBar.frame = inputFrame;
@@ -210,11 +209,9 @@
         return;
     }
     NSDictionary * userInfo = [notification userInfo];
-    CGRect keyboardFrame = [[userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     CGFloat duration = [[userInfo valueForKey:UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    CGRect inputFrame = CGRectMake(0.0, keyboardFrame.origin.y - self.inputToolBar.es_height, self.inputToolBar.es_width, self.inputToolBar.es_height);
-    
     CGRect tableFrame = tempTableFrame;
+    CGRect inputFrame = CGRectMake(0.0, CGRectGetMaxY(tableFrame), self.inputToolBar.es_width, self.inputToolBar.es_height);
     
     __weak __typeof(self) weakSelf = self;
     void (^animate)(void) = ^{
@@ -236,7 +233,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.navigationItem.title = @"聊天室";
+    self.navigationItem.title = @"Chat Room";
     [self setupGestures];
     self.chatManager.delegate = self;
     [self.view addSubview:self.myTableView];

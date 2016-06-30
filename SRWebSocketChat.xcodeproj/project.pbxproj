@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		013CB5CC1D2502AC000ACB96 /* SRPushAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 013CB5CB1D2502AC000ACB96 /* SRPushAnimator.m */; };
+		013CB5CF1D2543B7000ACB96 /* SRBasePushAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 013CB5CE1D2543B7000ACB96 /* SRBasePushAnimation.m */; };
 		014F0A161D1A91A400C4CA0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A151D1A91A400C4CA0A /* main.m */; };
 		014F0A191D1A91A400C4CA0A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A181D1A91A400C4CA0A /* AppDelegate.m */; };
 		014F0A1C1D1A91A400C4CA0A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A1B1D1A91A400C4CA0A /* ViewController.m */; };
@@ -99,6 +101,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		013CB5CA1D2502AC000ACB96 /* SRPushAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRPushAnimator.h; sourceTree = "<group>"; };
+		013CB5CB1D2502AC000ACB96 /* SRPushAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRPushAnimator.m; sourceTree = "<group>"; };
+		013CB5CD1D2543B7000ACB96 /* SRBasePushAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRBasePushAnimation.h; sourceTree = "<group>"; };
+		013CB5CE1D2543B7000ACB96 /* SRBasePushAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRBasePushAnimation.m; sourceTree = "<group>"; };
 		014F0A111D1A91A400C4CA0A /* SRWebSocketChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRWebSocketChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		014F0A151D1A91A400C4CA0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		014F0A171D1A91A400C4CA0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -275,6 +281,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		013CB5C91D250260000ACB96 /* PushAnimation */ = {
+			isa = PBXGroup;
+			children = (
+				013CB5CA1D2502AC000ACB96 /* SRPushAnimator.h */,
+				013CB5CB1D2502AC000ACB96 /* SRPushAnimator.m */,
+				013CB5CD1D2543B7000ACB96 /* SRBasePushAnimation.h */,
+				013CB5CE1D2543B7000ACB96 /* SRBasePushAnimation.m */,
+			);
+			path = PushAnimation;
+			sourceTree = "<group>";
+		};
 		014F0A081D1A91A400C4CA0A = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +674,7 @@
 		01F8D1151D1BE51E00439029 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				013CB5C91D250260000ACB96 /* PushAnimation */,
 				01F8D1161D1BE55800439029 /* SRBaseVieController.h */,
 				01F8D1171D1BE55800439029 /* SRBaseVieController.m */,
 				01F8D1191D1BE58400439029 /* SRBaseNavigationController.h */,
@@ -837,6 +855,8 @@
 				0182A1361D212677008A359E /* SRChatTextMessageRightCell.m in Sources */,
 				01F8D11B1D1BE58400439029 /* SRBaseNavigationController.m in Sources */,
 				014F0A7C1D1A92F200C4CA0A /* SRRandom.m in Sources */,
+				013CB5CC1D2502AC000ACB96 /* SRPushAnimator.m in Sources */,
+				013CB5CF1D2543B7000ACB96 /* SRBasePushAnimation.m in Sources */,
 				01F6B15C1D21073E00B8E032 /* MASConstraintMaker.m in Sources */,
 				01F6B1911D21085D00B8E032 /* SDWebImageManager.m in Sources */,
 				01F6B18E1D21085D00B8E032 /* SDWebImageDecoder.m in Sources */,

@@ -10,8 +10,9 @@
 #import "SRChatManager.h"
 #import "SRChatUserInfo.h"
 #import "SRChatViewController.h"
+#import "SRPushAnimator.h"
 
-@interface ViewController ()<SRChatManagerDelegate>
+@interface ViewController ()<SRChatManagerDelegate, UIViewControllerTransitioningDelegate>
 {
     __weak IBOutlet UITextField *userNameTextField;
     __weak IBOutlet UITextField *passwordTextField;
@@ -59,9 +60,7 @@
 - (SRChatManager *)chatManager
 {
     _chatManager = [SRChatManager defaultManager];
-    if (!_chatManager.delegate) {
-        _chatManager.delegate = self;
-    }
+    _chatManager.delegate = self;
     return _chatManager;
 }
 
@@ -76,6 +75,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    self.transitioningDelegate = self;
+    self.navigationItem.title = @"SRWebSocketChat";
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     tapGesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tapGesture];
@@ -131,6 +132,23 @@
         default:
             break;
     }
+}
+
+#pragma mark - UIViewControllerTransitioningDelegate
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    return [[SRPushAnimator alloc] init];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    return [[SRPushAnimator alloc] init];
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator
+{
+    return nil;
 }
 
 @end
