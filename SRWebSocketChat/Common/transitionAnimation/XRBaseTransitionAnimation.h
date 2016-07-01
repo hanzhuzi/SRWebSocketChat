@@ -1,5 +1,5 @@
 //
-//  SRBasePushAnimation.h
+//  XRBaseTransitionAnimation.h
 //  SRWebSocketChat
 //
 //  Created by xuran on 16/6/30.
@@ -9,12 +9,12 @@
 #import <Foundation/Foundation.h>
 
 /**
- push animation base class.
+ push \ pop animation base class.
  */
-@interface SRBasePushAnimation : NSObject<UIViewControllerAnimatedTransitioning>
+@interface XRBaseTransitionAnimation : NSObject<UIViewControllerAnimatedTransitioning>
 
 /**
- reverse YES back.
+ reverse push or pop.
  */
 @property (nonatomic, assign) BOOL reverse;
 

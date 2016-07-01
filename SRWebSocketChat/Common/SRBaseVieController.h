@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AppDelegate.h"
 
 @interface SRBaseVieController : UIViewController
+
+@property (nonatomic, strong) AppDelegate * appDelegate;
 
 @end

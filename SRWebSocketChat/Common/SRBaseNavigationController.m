@@ -7,13 +7,19 @@
 //
 
 #import "SRBaseNavigationController.h"
-#import "SRPushAnimator.h"
+#import "XRBaseTransitionAnimation.h"
+#import "AppDelegate.h"
 
 @interface SRBaseNavigationController ()<UINavigationControllerDelegate>
 
 @end
 
 @implementation SRBaseNavigationController
+
+- (AppDelegate *)appdelegate
+{
+    return (AppDelegate *)[UIApplication sharedApplication].delegate;
+}
 
 - (void)setupNavigation
 {
@@ -42,7 +48,10 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
 {
-    return [[SRPushAnimator alloc] init];
+    if ([self appdelegate].navigationAnimation) {
+        [self appdelegate].navigationAnimation.reverse = operation == UINavigationControllerOperationPop;
+    }
+    return [self appdelegate].navigationAnimation;
 }
 
 @end

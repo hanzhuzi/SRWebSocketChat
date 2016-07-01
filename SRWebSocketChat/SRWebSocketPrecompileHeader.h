@@ -15,5 +15,7 @@
 #import "SRChatConfig.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
+#import "XRTranslateTransitionAnimation.h"
+#import "XRFadeTransitionAnimation.h"
 
 #endif /* SRWebSocketPrecompileHeader_h */

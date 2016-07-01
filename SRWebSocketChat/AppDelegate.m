@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "XRTranslateTransitionAnimation.h"
 
 @interface AppDelegate ()
 
@@ -14,10 +15,12 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     [NSThread sleepForTimeInterval:1.0];
+
+    self.navigationAnimation = [XRFadeTransitionAnimation new];
+    
     return YES;
 }
 

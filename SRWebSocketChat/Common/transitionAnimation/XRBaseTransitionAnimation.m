@@ -6,14 +6,14 @@
 //  Copyright © 2016年 黯丶野火. All rights reserved.
 //
 
-#import "SRBasePushAnimation.h"
+#import "XRBaseTransitionAnimation.h"
 
-@implementation SRBasePushAnimation
+@implementation XRBaseTransitionAnimation
 
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.duration = 1.0; // 默认1.0s
+        self.duration = 3.0; // 默认1.0s
     }
     return self;
 }

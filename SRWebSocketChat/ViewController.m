@@ -10,7 +10,7 @@
 #import "SRChatManager.h"
 #import "SRChatUserInfo.h"
 #import "SRChatViewController.h"
-#import "SRPushAnimator.h"
+#import "XRTranslateTransitionAnimation.h"
 
 @interface ViewController ()<SRChatManagerDelegate, UIViewControllerTransitioningDelegate>
 {
@@ -32,7 +32,7 @@
 
 - (IBAction)loginAction:(id)sender {
     
-#if 1
+#if 0
     
     [loginButton setTitle:@"登录中..." forState:UIControlStateNormal];
     
@@ -53,7 +53,8 @@
     self.chatManager.userInfo.room_id  = @"1";
     [self.chatManager openServer];  // 建立连接之后默认登录服务器
 #else
-
+    SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
+    [self.navigationController pushViewController:chatViewCtrl animated:YES];
 #endif
 }
 
@@ -68,6 +69,7 @@
 {
     [super viewWillAppear:animated];
     
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 }
 
@@ -138,12 +140,12 @@
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-    return [[SRPushAnimator alloc] init];
+    return self.appDelegate.navigationAnimation;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return [[SRPushAnimator alloc] init];
+    return self.appDelegate.navigationAnimation;
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator

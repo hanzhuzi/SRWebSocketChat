@@ -32,6 +32,7 @@
 @property (nonatomic, assign) BOOL   keyboardShow;
 @property (nonatomic, strong) NSMutableArray * chatMessages;
 @property (nonatomic, strong) SRChatManager * chatManager;
+@property (nonatomic, strong) UIView * navigationBarView;
 
 @end
 
@@ -72,6 +73,29 @@
 }
 
 #pragma mark - getter & setter
+
+- (UIView *)navigationBarView
+{
+    if (nil == _navigationBarView) {
+        _navigationBarView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.es_width, 64.0)];
+        _navigationBarView.backgroundColor = ColorWithRGB(160, 160, 160);
+        
+        UIButton * leftItem = [[UIButton alloc] init];
+        leftItem.frame = CGRectMake(12.0, 22.0, 50.0, 40.0);
+        [leftItem setTitle:@"返回" forState:UIControlStateNormal];
+        [leftItem setTitleColor:ColorWithRGB(250, 250, 250) forState:UIControlStateNormal];
+        [leftItem addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
+        [_navigationBarView addSubview:leftItem];
+        
+        UILabel * titleView = [[UILabel alloc] init];
+        titleView.frame = CGRectMake((self.view.es_width - 100.0) * 0.5, 20, 100.0, 44.0);
+        titleView.text = @"Chat Room";
+        titleView.textAlignment = NSTextAlignmentCenter;
+        titleView.textColor = ColorWithRGB(250, 250, 250);
+        [_navigationBarView addSubview:titleView];
+    }
+    return _navigationBarView;
+}
 
 - (SRChatManager *)chatManager
 {
@@ -132,6 +156,11 @@
 }
 
 #pragma mark - Actions
+
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark  计算cell高度
 - (void)calculateCellHeightWithTextMessage:(SRChatTextMessage *)textMessage
@@ -233,7 +262,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    self.navigationItem.title = @"Chat Room";
+    [self.view addSubview:self.navigationBarView];
     [self setupGestures];
     self.chatManager.delegate = self;
     [self.view addSubview:self.myTableView];

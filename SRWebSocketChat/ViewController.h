@@ -6,10 +6,9 @@
 //  Copyright © 2016年 黯丶野火. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SRBaseVieController.h"
 
-@interface ViewController : UIViewController
-
+@interface ViewController : SRBaseVieController
 
 @end
 
