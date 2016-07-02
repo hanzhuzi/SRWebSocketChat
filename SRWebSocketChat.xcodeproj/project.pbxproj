@@ -47,6 +47,7 @@
 		016087051D1BFDE30037C772 /* SRChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 016087041D1BFDE30037C772 /* SRChatInputToolBar.m */; };
 		0182A1361D212677008A359E /* SRChatTextMessageRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0182A1351D212677008A359E /* SRChatTextMessageRightCell.m */; };
 		01D54D1A1D1C02D30039BD23 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D54D191D1C02D30039BD23 /* UIView+Extension.m */; };
+		01EBEC3A1D27A3560065FED1 /* XRCicleTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EBEC391D27A3560065FED1 /* XRCicleTransitionAnimation.m */; };
 		01F6B1371D20C93300B8E032 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F6B1361D20C93300B8E032 /* NSString+Extension.m */; };
 		01F6B13D1D21022700B8E032 /* SRChatTextMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F6B13C1D21022700B8E032 /* SRChatTextMessageLeftCell.m */; };
 		01F6B1591D21073E00B8E032 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F6B13F1D21073E00B8E032 /* Info.plist */; };
@@ -178,6 +179,8 @@
 		01D54D181D1C02D30039BD23 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		01D54D191D1C02D30039BD23 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		01D54D1B1D1C04DC0039BD23 /* SRWebSocketPrecompileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketPrecompileHeader.h; sourceTree = "<group>"; };
+		01EBEC381D27A3560065FED1 /* XRCicleTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XRCicleTransitionAnimation.h; path = SRWebSocketChat/Common/transitionAnimation/XRCicleTransitionAnimation.h; sourceTree = SOURCE_ROOT; };
+		01EBEC391D27A3560065FED1 /* XRCicleTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XRCicleTransitionAnimation.m; path = SRWebSocketChat/Common/transitionAnimation/XRCicleTransitionAnimation.m; sourceTree = SOURCE_ROOT; };
 		01F6B1351D20C93300B8E032 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		01F6B1361D20C93300B8E032 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		01F6B13B1D21022700B8E032 /* SRChatTextMessageLeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatTextMessageLeftCell.h; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 				010BA2221D26191F00C6E1E3 /* XRTranslateTransitionAnimation.m */,
 				010BA22B1D261C6500C6E1E3 /* XRFadeTransitionAnimation.h */,
 				010BA22C1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m */,
+				01EBEC381D27A3560065FED1 /* XRCicleTransitionAnimation.h */,
+				01EBEC391D27A3560065FED1 /* XRCicleTransitionAnimation.m */,
 			);
 			name = transitionAnimation;
 			path = PushAnimation;
@@ -876,6 +881,7 @@
 				01F6B18E1D21085D00B8E032 /* SDWebImageDecoder.m in Sources */,
 				01F6B1671D21076F00B8E032 /* TTTAttributedLabel.m in Sources */,
 				014F0A191D1A91A400C4CA0A /* AppDelegate.m in Sources */,
+				01EBEC3A1D27A3560065FED1 /* XRCicleTransitionAnimation.m in Sources */,
 				014F0A951D1A96A800C4CA0A /* SRChatManager.m in Sources */,
 				01F6B1631D21073E00B8E032 /* ViewController+MASAdditions.m in Sources */,
 				010BA22D1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m in Sources */,

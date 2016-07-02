@@ -30,6 +30,27 @@
     self.chatManager.delegate = nil;
 }
 
+- (UIButton *)comingButton
+{
+    if (nil == _comingButton) {
+        static const CGFloat buttonWH = 50.0;
+        _comingButton = [UIButton new];
+        _comingButton.frame = CGRectMake(self.view.es_maxX - buttonWH - 20.0, 30.0, buttonWH, buttonWH);
+        _comingButton.backgroundColor = [UIColor redColor];
+        _comingButton.layer.cornerRadius = buttonWH * 0.5;
+        _comingButton.layer.shadowColor = ColorWithRGB(100, 100, 100).CGColor;
+        _comingButton.layer.shadowOffset = CGSizeMake(0, 0);
+        _comingButton.layer.shadowOpacity = 1.0;
+        _comingButton.layer.masksToBounds = NO;
+        _comingButton.layer.shadowRadius = 5.0;
+        
+        [_comingButton setTitle:@"聊天吧" forState:UIControlStateNormal];
+        [_comingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        _comingButton.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+    }
+    return _comingButton;
+}
+
 - (IBAction)loginAction:(id)sender {
     
 #if 0
@@ -82,6 +103,9 @@
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     tapGesture.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tapGesture];
+    
+
+    [self.view addSubview:self.comingButton];
 }
 
 - (void)tapAction

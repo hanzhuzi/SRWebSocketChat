@@ -46,12 +46,19 @@
 
 #pragma mark - UINavigationControllerDelegate
 
+// custom push / pop animation
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
 {
     if ([self appdelegate].navigationAnimation) {
         [self appdelegate].navigationAnimation.reverse = operation == UINavigationControllerOperationPop;
     }
     return [self appdelegate].navigationAnimation;
+}
+
+// custom gesture animation
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController
+{
+    return nil;
 }
 
 @end

@@ -33,23 +33,20 @@
  */
 - (void)excuteForWardsAnimationTransition:(id<UIViewControllerContextTransitioning>)transitionContext fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC fromView:(UIView *)fromView toView:(UIView *)toView
 {
+    UIView * containerView = [transitionContext containerView];
+    containerView.backgroundColor = [UIColor lightGrayColor];
     
-    CGRect toFrame = [transitionContext finalFrameForViewController:toVC];
-    if (CGRectIsEmpty(toFrame)) {
-        toFrame = [UIScreen mainScreen].bounds;
-    }
+    [containerView addSubview:toView];
+    [containerView addSubview:fromView];
+    CGSize mainSize = [UIScreen mainScreen].bounds.size;
     
-    CGSize mainScreenSize = [UIScreen mainScreen].bounds.size;
-    
-    [[transitionContext containerView] addSubview:toView];
-    [[transitionContext containerView] addSubview:fromView];
-    toView.frame = CGRectMake(-mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
-    fromView.frame = CGRectMake(0, 0, mainScreenSize.width, mainScreenSize.height);
+    toView.frame = CGRectMake(-mainSize.width * 0.25, 0, mainSize.width, mainSize.height);
+    fromView.frame = CGRectMake(0, 0, mainSize.width, mainSize.height);
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        toView.frame = toFrame;
-        
-        fromView.frame = CGRectMake(mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
+        toView.frame = CGRectMake(0, 0.0, mainSize.width, mainSize.height);
+        fromView.frame = CGRectMake(mainSize.width, 0, mainSize.width, mainSize.height);
+        containerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.0];
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
@@ -60,22 +57,21 @@
  */
 - (void)excuteBackWardsAnimationTransition:(id<UIViewControllerContextTransitioning>)transitionContext fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC fromView:(UIView *)fromView toView:(UIView *)toView
 {
-    CGRect toFrame = [transitionContext finalFrameForViewController:toVC];
-    if (CGRectIsEmpty(toFrame)) {
-        toFrame = [UIScreen mainScreen].bounds;
-    }
+    UIView * containerView = [transitionContext containerView];
+    containerView.backgroundColor = [UIColor lightGrayColor];
     
-    CGSize mainScreenSize = [UIScreen mainScreen].bounds.size;
+    [containerView addSubview:fromView];
+    [containerView addSubview:toView];
     
-    [[transitionContext containerView] addSubview:toView];
-    [[transitionContext containerView] addSubview:fromView];
-    toView.frame = CGRectMake(mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
-    fromView.frame = CGRectMake(0, 0, mainScreenSize.width, mainScreenSize.height);
+    CGSize mainSize = [UIScreen mainScreen].bounds.size;
+    
+    toView.frame = CGRectMake(mainSize.width * 0.75, 0.0, mainSize.width, mainSize.height);
+    fromView.frame = CGRectMake(0, 0, mainSize.width, mainSize.height);
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        toView.frame = toFrame;
-        
-        fromView.frame = CGRectMake(-mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
+        toView.frame = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height);
+        fromView.frame = CGRectMake(-mainSize.width, 0, mainSize.width, mainSize.height);
+        containerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.0];
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];

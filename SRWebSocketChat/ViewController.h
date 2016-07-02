@@ -9,6 +9,6 @@
 #import "SRBaseVieController.h"
 
 @interface ViewController : SRBaseVieController
-
+@property (nonatomic, strong) UIButton * comingButton;
 @end
 

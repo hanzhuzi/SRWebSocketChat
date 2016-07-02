@@ -1,18 +1,14 @@
 //
-//  SRPushAnimator.m
+//  XRFadeTransitionAnimation.m
 //  SRWebSocketChat
 //
-//  Created by xuran on 16/6/30.
+//  Created by xuran on 16/7/1.
 //  Copyright © 2016年 黯丶野火. All rights reserved.
 //
 
-#import "SRPushAnimator.h"
+#import "XRFadeTransitionAnimation.h"
 
-@interface SRPushAnimator ()
-
-@end
-
-@implementation SRPushAnimator
+@implementation XRFadeTransitionAnimation
 
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC fromView:(UIView *)fromView toView:(UIView *)toView
 {
@@ -29,23 +25,18 @@
  */
 - (void)excuteForWardsAnimationTransition:(id<UIViewControllerContextTransitioning>)transitionContext fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC fromView:(UIView *)fromView toView:(UIView *)toView
 {
-    CGRect toFrame = [transitionContext finalFrameForViewController:toVC];
-    if (CGRectIsEmpty(toFrame)) {
-        toFrame = [UIScreen mainScreen].bounds;
-    }
+    UIView * containerView = [transitionContext containerView];
+    containerView.backgroundColor = [UIColor lightGrayColor];
     
-    CGSize mainScreenSize = [UIScreen mainScreen].bounds.size;
+    [containerView addSubview:toView];
+    [containerView addSubview:fromView];
     
-    [[transitionContext containerView] addSubview:toView];
-    [[transitionContext containerView] addSubview:fromView];
-    [[transitionContext containerView] sendSubviewToBack:toView];
-    toView.frame = CGRectMake(-mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
-    fromView.frame = CGRectMake(0, 0, mainScreenSize.width, mainScreenSize.height);
+    fromView.alpha = 1.0;
+    toView.alpha = 0.0;
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        toView.frame = toFrame;
-        
-        fromView.frame = CGRectMake(mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
+        fromView.alpha = 0.0;
+        toView.alpha = 1.0;
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
@@ -56,23 +47,18 @@
  */
 - (void)excuteBackWardsAnimationTransition:(id<UIViewControllerContextTransitioning>)transitionContext fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC fromView:(UIView *)fromView toView:(UIView *)toView
 {
-    CGRect toFrame = [transitionContext finalFrameForViewController:toVC];
-    if (CGRectIsEmpty(toFrame)) {
-        toFrame = [UIScreen mainScreen].bounds;
-    }
+    UIView * containerView = [transitionContext containerView];
+    containerView.backgroundColor = [UIColor lightGrayColor];
     
-    CGSize mainScreenSize = [UIScreen mainScreen].bounds.size;
+    [containerView addSubview:fromView];
+    [containerView addSubview:toView];
     
-    [[transitionContext containerView] addSubview:toView];
-    [[transitionContext containerView] addSubview:fromView];
-    [[transitionContext containerView] sendSubviewToBack:toView];
-    toView.frame = CGRectMake(mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
-    fromView.frame = CGRectMake(0, 0, mainScreenSize.width, mainScreenSize.height);
+    fromView.alpha = 1.0;
+    toView.alpha = 0.0;
     
     [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0.0 options:UIViewAnimationOptionCurveLinear animations:^{
-        toView.frame = toFrame;
-        
-        fromView.frame = CGRectMake(-mainScreenSize.width, 0, mainScreenSize.width, mainScreenSize.height);
+        fromView.alpha = 0.0;
+        toView.alpha = 1.0;
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
