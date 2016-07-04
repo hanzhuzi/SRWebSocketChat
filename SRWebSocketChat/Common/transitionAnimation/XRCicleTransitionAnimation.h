@@ -8,6 +8,7 @@
 
 /**
  circle animation.
+ 模仿QQ打电话页面切换动画.
  */
 #import "XRBaseTransitionAnimation.h"
 
