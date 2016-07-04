@@ -8,7 +8,17 @@
 
 #import "SRBaseVieController.h"
 
+@class SRChatViewController;
+@protocol SRChatViewControllerDismissDelegate <NSObject>
+
+@optional
+- (void)dismissViewController:(SRChatViewController *)viewController;
+
+@end
+
 @interface SRChatViewController : SRBaseVieController
+
+@property (nonatomic, weak) id<SRChatViewControllerDismissDelegate> delegate;
 
 /**
  * @brief   进入聊天室 指定聊天室id

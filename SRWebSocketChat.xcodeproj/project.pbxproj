@@ -10,6 +10,9 @@
 		010BA2231D26191F00C6E1E3 /* XRBaseTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 010BA2201D26191F00C6E1E3 /* XRBaseTransitionAnimation.m */; };
 		010BA2241D26191F00C6E1E3 /* XRTranslateTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 010BA2221D26191F00C6E1E3 /* XRTranslateTransitionAnimation.m */; };
 		010BA22D1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 010BA22C1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m */; };
+		014D7DA31D2A18D9008CA3EC /* calling@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 014D7DA21D2A18D9008CA3EC /* calling@2x.png */; };
+		014D7DA61D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 014D7DA51D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.m */; };
+		014D7DA91D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 014D7DA81D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.m */; };
 		014F0A161D1A91A400C4CA0A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A151D1A91A400C4CA0A /* main.m */; };
 		014F0A191D1A91A400C4CA0A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A181D1A91A400C4CA0A /* AppDelegate.m */; };
 		014F0A1C1D1A91A400C4CA0A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 014F0A1B1D1A91A400C4CA0A /* ViewController.m */; };
@@ -109,6 +112,11 @@
 		010BA2221D26191F00C6E1E3 /* XRTranslateTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XRTranslateTransitionAnimation.m; path = SRWebSocketChat/Common/transitionAnimation/XRTranslateTransitionAnimation.m; sourceTree = SOURCE_ROOT; };
 		010BA22B1D261C6500C6E1E3 /* XRFadeTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XRFadeTransitionAnimation.h; path = SRWebSocketChat/Common/transitionAnimation/XRFadeTransitionAnimation.h; sourceTree = SOURCE_ROOT; };
 		010BA22C1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XRFadeTransitionAnimation.m; path = SRWebSocketChat/Common/transitionAnimation/XRFadeTransitionAnimation.m; sourceTree = SOURCE_ROOT; };
+		014D7DA21D2A18D9008CA3EC /* calling@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "calling@2x.png"; path = "../../calling@2x.png"; sourceTree = "<group>"; };
+		014D7DA41D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRBaseInteractiveTransitionAnimation.h; sourceTree = "<group>"; };
+		014D7DA51D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRBaseInteractiveTransitionAnimation.m; sourceTree = "<group>"; };
+		014D7DA71D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRVerticalInteractiveTransitionAnimation.h; sourceTree = "<group>"; };
+		014D7DA81D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRVerticalInteractiveTransitionAnimation.m; sourceTree = "<group>"; };
 		014F0A111D1A91A400C4CA0A /* SRWebSocketChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SRWebSocketChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		014F0A151D1A91A400C4CA0A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		014F0A171D1A91A400C4CA0A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -290,6 +298,10 @@
 		010BA21E1D260CB900C6E1E3 /* InteractionAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				014D7DA41D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.h */,
+				014D7DA51D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.m */,
+				014D7DA71D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.h */,
+				014D7DA81D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.m */,
 			);
 			path = InteractionAnimation;
 			sourceTree = "<group>";
@@ -682,6 +694,7 @@
 			isa = PBXGroup;
 			children = (
 				01556D1C1D23800000291A99 /* chat_recive_nor@2x.png */,
+				014D7DA21D2A18D9008CA3EC /* calling@2x.png */,
 				01556D1D1D23800000291A99 /* chat_recive_press_pic@2x.png */,
 				01556D1E1D23800000291A99 /* chat_send_nor@2x.png */,
 				01556D1F1D23800000291A99 /* chat_send_press_pic@2x.png */,
@@ -809,6 +822,7 @@
 			files = (
 				01556D201D23800000291A99 /* chat_recive_nor@2x.png in Resources */,
 				01F6B1591D21073E00B8E032 /* Info.plist in Resources */,
+				014D7DA31D2A18D9008CA3EC /* calling@2x.png in Resources */,
 				01556D211D23800000291A99 /* chat_recive_press_pic@2x.png in Resources */,
 				014F0A241D1A91A400C4CA0A /* LaunchScreen.storyboard in Resources */,
 				01556D221D23800000291A99 /* chat_send_nor@2x.png in Resources */,
@@ -859,6 +873,7 @@
 				014F0A9C1D1A976B00C4CA0A /* SRChatTextMessage.m in Sources */,
 				01F6B1981D21085D00B8E032 /* UIImageView+WebCache.m in Sources */,
 				01F6B1371D20C93300B8E032 /* NSString+Extension.m in Sources */,
+				014D7DA61D2A5405008CA3EC /* XRBaseInteractiveTransitionAnimation.m in Sources */,
 				01D54D1A1D1C02D30039BD23 /* UIView+Extension.m in Sources */,
 				01F6B1901D21085D00B8E032 /* SDWebImageDownloaderOperation.m in Sources */,
 				014F0A801D1A92F200C4CA0A /* SRWebSocket.m in Sources */,
@@ -888,6 +903,7 @@
 				014F0A751D1A92F200C4CA0A /* SRIOConsumerPool.m in Sources */,
 				01F6B18F1D21085D00B8E032 /* SDWebImageDownloader.m in Sources */,
 				01F6B1991D21085D00B8E032 /* UIView+WebCacheOperation.m in Sources */,
+				014D7DA91D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.m in Sources */,
 				014F0A791D1A92F200C4CA0A /* SRError.m in Sources */,
 				01F6B1611D21073E00B8E032 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				01F6B13D1D21022700B8E032 /* SRChatTextMessageLeftCell.m in Sources */,

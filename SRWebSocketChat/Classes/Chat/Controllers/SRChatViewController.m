@@ -131,7 +131,7 @@
 - (UITableView *)myTableView
 {
     if (nil == _myTableView) {
-        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.navigationController.navigationBar.translucent ? 64.0 : 0.0, self.view.es_width, self.view.es_maxY - InputToolBarMinHeight - 64.0) style:UITableViewStylePlain];
+        _myTableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 64.0, self.view.es_width, self.view.es_maxY - InputToolBarMinHeight - 64.0) style:UITableViewStylePlain];
         _myTableView.delegate = self;
         _myTableView.dataSource = self;
         _myTableView.bounces = YES;
@@ -159,7 +159,7 @@
 
 - (void)backAction
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.delegate dismissViewController:self];
 }
 
 #pragma mark  计算cell高度

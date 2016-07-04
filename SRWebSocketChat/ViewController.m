@@ -11,8 +11,10 @@
 #import "SRChatUserInfo.h"
 #import "SRChatViewController.h"
 #import "XRTranslateTransitionAnimation.h"
+#import "XRCicleTransitionAnimation.h"
+#import "XRVerticalInteractiveTransitionAnimation.h"
 
-@interface ViewController ()<SRChatManagerDelegate, UIViewControllerTransitioningDelegate>
+@interface ViewController ()<SRChatManagerDelegate, UIViewControllerTransitioningDelegate, SRChatViewControllerDismissDelegate>
 {
     __weak IBOutlet UITextField *userNameTextField;
     __weak IBOutlet UITextField *passwordTextField;
@@ -20,6 +22,8 @@
 }
 
 @property (nonatomic, strong) SRChatManager * chatManager;
+@property (nonatomic, strong) XRCicleTransitionAnimation * animator;
+@property (nonatomic, strong) XRVerticalInteractiveTransitionAnimation * interactiveAnimator;
 
 @end
 
@@ -33,20 +37,16 @@
 - (UIButton *)comingButton
 {
     if (nil == _comingButton) {
-        static const CGFloat buttonWH = 50.0;
         _comingButton = [UIButton new];
-        _comingButton.frame = CGRectMake(self.view.es_maxX - buttonWH - 20.0, 30.0, buttonWH, buttonWH);
-        _comingButton.backgroundColor = [UIColor redColor];
-        _comingButton.layer.cornerRadius = buttonWH * 0.5;
+        _comingButton.frame = CGRectMake(self.view.es_maxX - SRChatButtonWH - 20.0, self.view.es_maxY -SRChatButtonWH - 30.0, SRChatButtonWH, SRChatButtonWH);
+        [_comingButton setImage:[UIImage imageNamed:@"calling"] forState:UIControlStateNormal];
+        _comingButton.layer.cornerRadius = SRChatButtonWH * 0.5;
         _comingButton.layer.shadowColor = ColorWithRGB(100, 100, 100).CGColor;
         _comingButton.layer.shadowOffset = CGSizeMake(0, 0);
         _comingButton.layer.shadowOpacity = 1.0;
         _comingButton.layer.masksToBounds = NO;
         _comingButton.layer.shadowRadius = 5.0;
-        
-        [_comingButton setTitle:@"聊天吧" forState:UIControlStateNormal];
-        [_comingButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _comingButton.titleLabel.font = [UIFont boldSystemFontOfSize:14.0];
+        [_comingButton addTarget:self action:@selector(jumpChatView:) forControlEvents:UIControlEventTouchUpInside];
     }
     return _comingButton;
 }
@@ -75,7 +75,9 @@
     [self.chatManager openServer];  // 建立连接之后默认登录服务器
 #else
     SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
-    [self.navigationController pushViewController:chatViewCtrl animated:YES];
+    chatViewCtrl.delegate = self;
+    chatViewCtrl.transitioningDelegate = self;
+    [self presentViewController:chatViewCtrl animated:YES completion:nil];
 #endif
 }
 
@@ -106,6 +108,32 @@
     
 
     [self.view addSubview:self.comingButton];
+}
+
+- (XRVerticalInteractiveTransitionAnimation *)interactiveAnimator
+{
+    if (nil == _interactiveAnimator) {
+        _interactiveAnimator = [[XRVerticalInteractiveTransitionAnimation alloc] init];
+    }
+    return _interactiveAnimator;
+}
+
+- (XRCicleTransitionAnimation *)animator
+{
+    if (nil == _animator) {
+        _animator = [[XRCicleTransitionAnimation alloc] init];
+    }
+    return _animator;
+}
+
+#pragma mark - Actions.
+- (void)jumpChatView:(UIButton *)button
+{
+    SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
+//    [self.navigationController pushViewController:chatViewCtrl animated:YES];
+    chatViewCtrl.transitioningDelegate = self;
+    chatViewCtrl.delegate = self;
+    [self presentViewController:chatViewCtrl animated:YES completion:nil];
 }
 
 - (void)tapAction
@@ -160,16 +188,30 @@
     }
 }
 
+#pragma mark - SRChatViewControllerDismissDelegate
+- (void)dismissViewController:(SRChatViewController *)viewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - UIViewControllerTransitioningDelegate
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
 {
-    return self.appDelegate.navigationAnimation;
+    self.animator.reverse = NO;
+    return self.animator;
 }
 
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    return self.appDelegate.navigationAnimation;
+    self.animator.reverse = YES;
+    return self.animator;
+}
+
+// 不使用交互式
+- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator
+{
+    return nil;
 }
 
 - (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator

@@ -7,8 +7,11 @@
 //
 
 /**
- circle animation.
- 模仿QQ打电话页面切换动画.
+ @brief 模仿QQ打电话页面切换动画.
+        push \ pop animator
+        present \ dismiss animator
+ 
+ @by    黯丶野火
  */
 #import "XRBaseTransitionAnimation.h"
 
