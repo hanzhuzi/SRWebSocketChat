@@ -69,11 +69,13 @@
 {
     if (fromVC == self) {
         // pop
+        self.navigationController.delegate = nil;
         self.fadeAnimator.reverse = YES;
         return self.fadeAnimator;
     }
     else if (toVC == self) {
         // push
+        self.navigationController.delegate = nil;
         self.fadeAnimator.reverse = NO;
         return self.fadeAnimator;
     }
