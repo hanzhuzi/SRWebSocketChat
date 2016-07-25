@@ -49,8 +49,15 @@
 		01556D231D23800000291A99 /* chat_send_press_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01556D1F1D23800000291A99 /* chat_send_press_pic@2x.png */; };
 		016087051D1BFDE30037C772 /* SRChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 016087041D1BFDE30037C772 /* SRChatInputToolBar.m */; };
 		0182A1361D212677008A359E /* SRChatTextMessageRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0182A1351D212677008A359E /* SRChatTextMessageRightCell.m */; };
+		01A4FD801D3CC5F3004CED5B /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4FD7F1D3CC5F3004CED5B /* ViewController1.m */; };
+		01A4FD831D3CC7D8004CED5B /* myCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4FD821D3CC7D8004CED5B /* myCell.m */; };
+		01A4FD851D3CD0A6004CED5B /* header.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 01A4FD841D3CD0A6004CED5B /* header.jpeg */; };
+		01A4FD881D3CD32B004CED5B /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4FD871D3CD32B004CED5B /* DetailViewController.m */; };
 		01D54D1A1D1C02D30039BD23 /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01D54D191D1C02D30039BD23 /* UIView+Extension.m */; };
 		01EBEC3A1D27A3560065FED1 /* XRCicleTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01EBEC391D27A3560065FED1 /* XRCicleTransitionAnimation.m */; };
+		01F3FAE11D45FA1800D5AA65 /* TransitionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3FAE01D45FA1800D5AA65 /* TransitionData.m */; };
+		01F3FAF11D460BBC00D5AA65 /* XRMoveTransitionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3FAF01D460BBC00D5AA65 /* XRMoveTransitionData.m */; };
+		01F3FAF41D460C1700D5AA65 /* XRMoveTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F3FAF31D460C1700D5AA65 /* XRMoveTransitionAnimation.m */; };
 		01F6B1371D20C93300B8E032 /* NSString+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F6B1361D20C93300B8E032 /* NSString+Extension.m */; };
 		01F6B13D1D21022700B8E032 /* SRChatTextMessageLeftCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 01F6B13C1D21022700B8E032 /* SRChatTextMessageLeftCell.m */; };
 		01F6B1591D21073E00B8E032 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01F6B13F1D21073E00B8E032 /* Info.plist */; };
@@ -184,11 +191,24 @@
 		016A31501D1D083C008AB890 /* SRWebSocketConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketConfig.h; sourceTree = "<group>"; };
 		0182A1341D212677008A359E /* SRChatTextMessageRightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatTextMessageRightCell.h; sourceTree = "<group>"; };
 		0182A1351D212677008A359E /* SRChatTextMessageRightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatTextMessageRightCell.m; sourceTree = "<group>"; };
+		01A4FD7E1D3CC5F3004CED5B /* ViewController1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController1.h; sourceTree = "<group>"; };
+		01A4FD7F1D3CC5F3004CED5B /* ViewController1.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController1.m; sourceTree = "<group>"; };
+		01A4FD811D3CC7D8004CED5B /* myCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myCell.h; sourceTree = "<group>"; };
+		01A4FD821D3CC7D8004CED5B /* myCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myCell.m; sourceTree = "<group>"; };
+		01A4FD841D3CD0A6004CED5B /* header.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = header.jpeg; path = ../../header.jpeg; sourceTree = "<group>"; };
+		01A4FD861D3CD32B004CED5B /* DetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
+		01A4FD871D3CD32B004CED5B /* DetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		01D54D181D1C02D30039BD23 /* UIView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extension.h"; sourceTree = "<group>"; };
 		01D54D191D1C02D30039BD23 /* UIView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extension.m"; sourceTree = "<group>"; };
 		01D54D1B1D1C04DC0039BD23 /* SRWebSocketPrecompileHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketPrecompileHeader.h; sourceTree = "<group>"; };
 		01EBEC381D27A3560065FED1 /* XRCicleTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XRCicleTransitionAnimation.h; path = SRWebSocketChat/Common/transitionAnimation/XRCicleTransitionAnimation.h; sourceTree = SOURCE_ROOT; };
 		01EBEC391D27A3560065FED1 /* XRCicleTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XRCicleTransitionAnimation.m; path = SRWebSocketChat/Common/transitionAnimation/XRCicleTransitionAnimation.m; sourceTree = SOURCE_ROOT; };
+		01F3FADF1D45FA1800D5AA65 /* TransitionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransitionData.h; sourceTree = "<group>"; };
+		01F3FAE01D45FA1800D5AA65 /* TransitionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitionData.m; sourceTree = "<group>"; };
+		01F3FAEF1D460BBC00D5AA65 /* XRMoveTransitionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRMoveTransitionData.h; sourceTree = "<group>"; };
+		01F3FAF01D460BBC00D5AA65 /* XRMoveTransitionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRMoveTransitionData.m; sourceTree = "<group>"; };
+		01F3FAF21D460C1700D5AA65 /* XRMoveTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XRMoveTransitionAnimation.h; sourceTree = "<group>"; };
+		01F3FAF31D460C1700D5AA65 /* XRMoveTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XRMoveTransitionAnimation.m; sourceTree = "<group>"; };
 		01F6B1351D20C93300B8E032 /* NSString+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Extension.h"; sourceTree = "<group>"; };
 		01F6B1361D20C93300B8E032 /* NSString+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Extension.m"; sourceTree = "<group>"; };
 		01F6B13B1D21022700B8E032 /* SRChatTextMessageLeftCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatTextMessageLeftCell.h; sourceTree = "<group>"; };
@@ -309,6 +329,8 @@
 		013CB5C91D250260000ACB96 /* transitionAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				01F3FAEF1D460BBC00D5AA65 /* XRMoveTransitionData.h */,
+				01F3FAF01D460BBC00D5AA65 /* XRMoveTransitionData.m */,
 				010BA21F1D26191F00C6E1E3 /* XRBaseTransitionAnimation.h */,
 				010BA2201D26191F00C6E1E3 /* XRBaseTransitionAnimation.m */,
 				010BA2211D26191F00C6E1E3 /* XRTranslateTransitionAnimation.h */,
@@ -317,9 +339,10 @@
 				010BA22C1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m */,
 				01EBEC381D27A3560065FED1 /* XRCicleTransitionAnimation.h */,
 				01EBEC391D27A3560065FED1 /* XRCicleTransitionAnimation.m */,
+				01F3FAF21D460C1700D5AA65 /* XRMoveTransitionAnimation.h */,
+				01F3FAF31D460C1700D5AA65 /* XRMoveTransitionAnimation.m */,
 			);
-			name = transitionAnimation;
-			path = PushAnimation;
+			path = transitionAnimation;
 			sourceTree = "<group>";
 		};
 		014F0A081D1A91A400C4CA0A = {
@@ -356,6 +379,14 @@
 				014F0A181D1A91A400C4CA0A /* AppDelegate.m */,
 				014F0A1A1D1A91A400C4CA0A /* ViewController.h */,
 				014F0A1B1D1A91A400C4CA0A /* ViewController.m */,
+				01A4FD7E1D3CC5F3004CED5B /* ViewController1.h */,
+				01F3FADF1D45FA1800D5AA65 /* TransitionData.h */,
+				01F3FAE01D45FA1800D5AA65 /* TransitionData.m */,
+				01A4FD7F1D3CC5F3004CED5B /* ViewController1.m */,
+				01A4FD861D3CD32B004CED5B /* DetailViewController.h */,
+				01A4FD871D3CD32B004CED5B /* DetailViewController.m */,
+				01A4FD811D3CC7D8004CED5B /* myCell.h */,
+				01A4FD821D3CC7D8004CED5B /* myCell.m */,
 				014F0A1D1D1A91A400C4CA0A /* Main.storyboard */,
 				014F0A201D1A91A400C4CA0A /* Assets.xcassets */,
 				014F0A221D1A91A400C4CA0A /* LaunchScreen.storyboard */,
@@ -693,6 +724,7 @@
 		01F6B19B1D21149600B8E032 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				01A4FD841D3CD0A6004CED5B /* header.jpeg */,
 				01556D1C1D23800000291A99 /* chat_recive_nor@2x.png */,
 				014D7DA21D2A18D9008CA3EC /* calling@2x.png */,
 				01556D1D1D23800000291A99 /* chat_recive_press_pic@2x.png */,
@@ -822,6 +854,7 @@
 			files = (
 				01556D201D23800000291A99 /* chat_recive_nor@2x.png in Resources */,
 				01F6B1591D21073E00B8E032 /* Info.plist in Resources */,
+				01A4FD851D3CD0A6004CED5B /* header.jpeg in Resources */,
 				014D7DA31D2A18D9008CA3EC /* calling@2x.png in Resources */,
 				01556D211D23800000291A99 /* chat_recive_press_pic@2x.png in Resources */,
 				014F0A241D1A91A400C4CA0A /* LaunchScreen.storyboard in Resources */,
@@ -881,6 +914,7 @@
 				01F6B15E1D21073E00B8E032 /* MASViewAttribute.m in Sources */,
 				014F0AA01D1AAD0D00C4CA0A /* SRChatTool.m in Sources */,
 				01F6B18D1D21085D00B8E032 /* SDWebImageCompat.m in Sources */,
+				01F3FAF11D460BBC00D5AA65 /* XRMoveTransitionData.m in Sources */,
 				01F6B15B1D21073E00B8E032 /* MASConstraint.m in Sources */,
 				01F6B1941D21085D00B8E032 /* UIImage+GIF.m in Sources */,
 				01F6B1971D21085D00B8E032 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -899,19 +933,24 @@
 				01EBEC3A1D27A3560065FED1 /* XRCicleTransitionAnimation.m in Sources */,
 				014F0A951D1A96A800C4CA0A /* SRChatManager.m in Sources */,
 				01F6B1631D21073E00B8E032 /* ViewController+MASAdditions.m in Sources */,
+				01A4FD881D3CD32B004CED5B /* DetailViewController.m in Sources */,
 				010BA22D1D261C6500C6E1E3 /* XRFadeTransitionAnimation.m in Sources */,
 				014F0A751D1A92F200C4CA0A /* SRIOConsumerPool.m in Sources */,
 				01F6B18F1D21085D00B8E032 /* SDWebImageDownloader.m in Sources */,
+				01A4FD831D3CC7D8004CED5B /* myCell.m in Sources */,
 				01F6B1991D21085D00B8E032 /* UIView+WebCacheOperation.m in Sources */,
 				014D7DA91D2A56E6008CA3EC /* XRVerticalInteractiveTransitionAnimation.m in Sources */,
 				014F0A791D1A92F200C4CA0A /* SRError.m in Sources */,
 				01F6B1611D21073E00B8E032 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				01F6B13D1D21022700B8E032 /* SRChatTextMessageLeftCell.m in Sources */,
 				01F6B15F1D21073E00B8E032 /* MASViewConstraint.m in Sources */,
+				01A4FD801D3CC5F3004CED5B /* ViewController1.m in Sources */,
 				01F6B1921D21085D00B8E032 /* SDWebImagePrefetcher.m in Sources */,
 				014F0A7F1D1A92F200C4CA0A /* NSURLRequest+SRWebSocket.m in Sources */,
+				01F3FAE11D45FA1800D5AA65 /* TransitionData.m in Sources */,
 				014F0A7A1D1A92F200C4CA0A /* SRHash.m in Sources */,
 				01F6B15D1D21073E00B8E032 /* MASLayoutConstraint.m in Sources */,
+				01F3FAF41D460C1700D5AA65 /* XRMoveTransitionAnimation.m in Sources */,
 				014F0A7B1D1A92F200C4CA0A /* SRHTTPConnectMessage.m in Sources */,
 				014F0A7D1D1A92F200C4CA0A /* SRURLUtilities.m in Sources */,
 				014F0A761D1A92F200C4CA0A /* SRProxyConnect.m in Sources */,

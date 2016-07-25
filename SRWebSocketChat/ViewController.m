@@ -53,7 +53,7 @@
 
 - (IBAction)loginAction:(id)sender {
     
-#if 0
+#if 1
     
     [loginButton setTitle:@"登录中..." forState:UIControlStateNormal];
     
@@ -172,7 +172,9 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 if (!isPushed) {
                     SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
-                    [self.navigationController pushViewController:chatViewCtrl animated:YES];
+                    chatViewCtrl.transitioningDelegate = self;
+                    chatViewCtrl.delegate = self;
+                    [self presentViewController:chatViewCtrl animated:YES completion:nil];
                 }
             });
         }

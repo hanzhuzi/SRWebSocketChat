@@ -13,7 +13,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.duration = 4.0; // 默认1.0s
+        self.duration = 0.5; // 默认1.0s
     }
     return self;
 }
@@ -35,6 +35,11 @@
 - (void)animateTransition:(id<UIViewControllerContextTransitioning>)transitionContext fromVC:(UIViewController *)fromVC toVC:(UIViewController *)toVC fromView:(UIView *)fromView toView:(UIView *)toView
 {
     // base nothings.
+}
+
+- (void)animationEnded:(BOOL)transitionCompleted
+{
+    NSLog(@"转场： %@", transitionCompleted ? @"完成" : @"未完成");
 }
 
 @end

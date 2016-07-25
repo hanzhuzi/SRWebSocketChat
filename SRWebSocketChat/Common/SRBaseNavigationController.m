@@ -25,10 +25,10 @@
 {
     // set bar
     self.navigationBar.tintColor = ColorWithRGB(255, 255, 255);
-    self.navigationBar.barTintColor = ColorWithRGB(120, 120, 120);
+    self.navigationBar.barTintColor = ColorWithRGB(220, 220, 220);
     self.navigationBar.titleTextAttributes = @{NSFontAttributeName : TextSystemFontWithSize(18.0), NSForegroundColorAttributeName : ColorWithRGB(255, 255, 255)};
     self.navigationBar.translucent = YES;
-    self.delegate = self;
+//    self.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -47,18 +47,18 @@
 #pragma mark - UINavigationControllerDelegate
 
 // custom push / pop animation
-- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
-{
-    if ([self appdelegate].navigationAnimation) {
-        [self appdelegate].navigationAnimation.reverse = operation == UINavigationControllerOperationPop;
-    }
-    return [self appdelegate].navigationAnimation;
-}
-
-// custom gesture animation
-- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController
-{
-    return nil;
-}
+//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
+//{
+//    if ([self appdelegate].navigationAnimation) {
+//        [self appdelegate].navigationAnimation.reverse = operation == UINavigationControllerOperationPop;
+//    }
+//    return [self appdelegate].navigationAnimation;
+//}
+//
+//// custom gesture animation
+//- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController
+//{
+//    return nil;
+//}
 
 @end
