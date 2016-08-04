@@ -91,7 +91,8 @@
 {
     [super viewWillAppear:animated];
     
-//    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    // 这里需要将导航隐藏，导航不隐藏的时候按钮移动会出现卡顿.
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 }
 
