@@ -6,6 +6,14 @@
 //  Copyright © 2016年 黯丶野火. All rights reserved.
 //
 
+/**
+ - @brief Mask 转场动画.
+ push \ pop animator
+ present \ dismiss animator
+ 
+ - @by    黯丶野火
+ */
+
 #import "XRCicleTransitionAnimation.h"
 #import "ViewController.h"
 

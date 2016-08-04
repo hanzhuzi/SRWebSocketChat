@@ -17,7 +17,7 @@ blue:(hex & 0xFF) / 255.0 alpha:1.0]
 #define TextSystemFontWithSize(size)    [UIFont systemFontOfSize:(size)]
 #define SRChatTextFont                  TextSystemFontWithSize(15.0)
 
-// const define.
+// CONSTAINT DEFINE.
 static CGFloat const SRChatButtonWH       =  50.0; // 聊天按钮大小
 static CGFloat const SRChatButtonMoveTime = 1.0; // 聊天按钮移动时间
 static CGFloat const SRChatViewMovingTime = 1.0; // 进入聊天页面时间

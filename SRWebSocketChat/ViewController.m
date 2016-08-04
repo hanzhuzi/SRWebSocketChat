@@ -91,7 +91,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [loginButton setTitle:@"登录" forState:UIControlStateNormal];
 }
 

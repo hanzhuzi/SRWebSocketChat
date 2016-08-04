@@ -17,11 +17,11 @@
 
 @implementation SRBaseNavigationController
 
-- (void)setupNavigation
+- (void)setupNavigationBar
 {
     // set navigationBar
     self.navigationBar.tintColor = ColorWithRGB(255, 255, 255);
-    self.navigationBar.barTintColor = ColorWithRGB(220, 220, 220);
+    self.navigationBar.barTintColor = ColorWithRGB(160, 160, 160);
     self.navigationBar.titleTextAttributes = @{NSFontAttributeName : TextSystemFontWithSize(18.0), NSForegroundColorAttributeName : ColorWithRGB(255, 255, 255)};
     self.navigationBar.translucent = YES;
     self.delegate = self;
@@ -37,7 +37,7 @@
 {
     [super viewDidLoad];
     
-    [self setupNavigation];
+    [self setupNavigationBar];
 }
 
 #pragma mark - UINavigationControllerDelegate
