@@ -14,7 +14,7 @@
 #import "XRCicleTransitionAnimation.h"
 #import "XRVerticalInteractiveTransitionAnimation.h"
 
-@interface ViewController ()<SRChatManagerDelegate, UIViewControllerTransitioningDelegate, SRChatViewControllerDismissDelegate>
+@interface ViewController ()<SRChatManagerDelegate, SRChatViewControllerDismissDelegate>
 {
     __weak IBOutlet UITextField *userNameTextField;
     __weak IBOutlet UITextField *passwordTextField;
@@ -22,7 +22,6 @@
 }
 
 @property (nonatomic, strong) SRChatManager * chatManager;
-@property (nonatomic, strong) XRCicleTransitionAnimation * animator;
 @property (nonatomic, strong) XRVerticalInteractiveTransitionAnimation * interactiveAnimator;
 
 @end
@@ -100,7 +99,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.transitioningDelegate = self;
     self.navigationItem.title = @"SRWebSocketChat";
     UITapGestureRecognizer * tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction)];
     tapGesture.numberOfTapsRequired = 1;
@@ -118,22 +116,12 @@
     return _interactiveAnimator;
 }
 
-- (XRCicleTransitionAnimation *)animator
-{
-    if (nil == _animator) {
-        _animator = [[XRCicleTransitionAnimation alloc] init];
-    }
-    return _animator;
-}
-
 #pragma mark - Actions.
 - (void)jumpChatView:(UIButton *)button
 {
     SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
-//    [self.navigationController pushViewController:chatViewCtrl animated:YES];
-    chatViewCtrl.transitioningDelegate = self;
     chatViewCtrl.delegate = self;
-    [self presentViewController:chatViewCtrl animated:YES completion:nil];
+    [self.navigationController pushViewController:chatViewCtrl animated:YES];
 }
 
 - (void)tapAction
@@ -172,9 +160,8 @@
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 if (!isPushed) {
                     SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
-                    chatViewCtrl.transitioningDelegate = self;
                     chatViewCtrl.delegate = self;
-                    [self presentViewController:chatViewCtrl animated:YES completion:nil];
+                    [self.navigationController pushViewController:chatViewCtrl animated:YES];
                 }
             });
         }
@@ -193,32 +180,7 @@
 #pragma mark - SRChatViewControllerDismissDelegate
 - (void)dismissViewController:(SRChatViewController *)viewController
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIViewControllerTransitioningDelegate
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-{
-    self.animator.reverse = NO;
-    return self.animator;
-}
-
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
-{
-    self.animator.reverse = YES;
-    return self.animator;
-}
-
-// 不使用交互式
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForPresentation:(id<UIViewControllerAnimatedTransitioning>)animator
-{
-    return nil;
-}
-
-- (id<UIViewControllerInteractiveTransitioning>)interactionControllerForDismissal:(id<UIViewControllerAnimatedTransitioning>)animator
-{
-    return nil;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

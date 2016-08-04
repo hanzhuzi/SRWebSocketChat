@@ -326,6 +326,21 @@
 			path = InteractionAnimation;
 			sourceTree = "<group>";
 		};
+		011BBAB01D532F28007EC8FB /* Move Transition */ = {
+			isa = PBXGroup;
+			children = (
+				01A4FD7E1D3CC5F3004CED5B /* ViewController1.h */,
+				01F3FADF1D45FA1800D5AA65 /* TransitionData.h */,
+				01F3FAE01D45FA1800D5AA65 /* TransitionData.m */,
+				01A4FD7F1D3CC5F3004CED5B /* ViewController1.m */,
+				01A4FD861D3CD32B004CED5B /* DetailViewController.h */,
+				01A4FD871D3CD32B004CED5B /* DetailViewController.m */,
+				01A4FD811D3CC7D8004CED5B /* myCell.h */,
+				01A4FD821D3CC7D8004CED5B /* myCell.m */,
+			);
+			name = "Move Transition";
+			sourceTree = "<group>";
+		};
 		013CB5C91D250260000ACB96 /* transitionAnimation */ = {
 			isa = PBXGroup;
 			children = (
@@ -379,14 +394,7 @@
 				014F0A181D1A91A400C4CA0A /* AppDelegate.m */,
 				014F0A1A1D1A91A400C4CA0A /* ViewController.h */,
 				014F0A1B1D1A91A400C4CA0A /* ViewController.m */,
-				01A4FD7E1D3CC5F3004CED5B /* ViewController1.h */,
-				01F3FADF1D45FA1800D5AA65 /* TransitionData.h */,
-				01F3FAE01D45FA1800D5AA65 /* TransitionData.m */,
-				01A4FD7F1D3CC5F3004CED5B /* ViewController1.m */,
-				01A4FD861D3CD32B004CED5B /* DetailViewController.h */,
-				01A4FD871D3CD32B004CED5B /* DetailViewController.m */,
-				01A4FD811D3CC7D8004CED5B /* myCell.h */,
-				01A4FD821D3CC7D8004CED5B /* myCell.m */,
+				011BBAB01D532F28007EC8FB /* Move Transition */,
 				014F0A1D1D1A91A400C4CA0A /* Main.storyboard */,
 				014F0A201D1A91A400C4CA0A /* Assets.xcassets */,
 				014F0A221D1A91A400C4CA0A /* LaunchScreen.storyboard */,

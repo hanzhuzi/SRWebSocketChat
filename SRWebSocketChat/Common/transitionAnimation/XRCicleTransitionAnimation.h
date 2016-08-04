@@ -7,7 +7,7 @@
 //
 
 /**
- @brief 模仿QQ打电话页面切换动画.
+ @brief Mask 转场动画.
         push \ pop animator
         present \ dismiss animator
  

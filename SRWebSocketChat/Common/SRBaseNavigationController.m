@@ -7,8 +7,9 @@
 //
 
 #import "SRBaseNavigationController.h"
-#import "XRBaseTransitionAnimation.h"
-#import "AppDelegate.h"
+#import "XRCicleTransitionAnimation.h"
+#import "ViewController.h"
+#import "SRChatViewController.h"
 
 @interface SRBaseNavigationController ()<UINavigationControllerDelegate>
 
@@ -16,19 +17,14 @@
 
 @implementation SRBaseNavigationController
 
-- (AppDelegate *)appdelegate
-{
-    return (AppDelegate *)[UIApplication sharedApplication].delegate;
-}
-
 - (void)setupNavigation
 {
-    // set bar
+    // set navigationBar
     self.navigationBar.tintColor = ColorWithRGB(255, 255, 255);
     self.navigationBar.barTintColor = ColorWithRGB(220, 220, 220);
     self.navigationBar.titleTextAttributes = @{NSFontAttributeName : TextSystemFontWithSize(18.0), NSForegroundColorAttributeName : ColorWithRGB(255, 255, 255)};
     self.navigationBar.translucent = YES;
-//    self.delegate = self;
+    self.delegate = self;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -46,19 +42,20 @@
 
 #pragma mark - UINavigationControllerDelegate
 
-// custom push / pop animation
-//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
-//{
-//    if ([self appdelegate].navigationAnimation) {
-//        [self appdelegate].navigationAnimation.reverse = operation == UINavigationControllerOperationPop;
-//    }
-//    return [self appdelegate].navigationAnimation;
-//}
-//
-//// custom gesture animation
-//- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController
-//{
-//    return nil;
-//}
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
+{
+    if ([fromVC isKindOfClass:[ViewController class]] && [toVC isKindOfClass:[SRChatViewController class]]) {
+        XRCicleTransitionAnimation * cicleAnimator = [[XRCicleTransitionAnimation alloc] init];
+        cicleAnimator.reverse = NO;
+        return cicleAnimator;
+    }
+    else if ([fromVC isKindOfClass:[SRChatViewController class]] && [toVC isKindOfClass:[ViewController class]]) {
+        XRCicleTransitionAnimation * cicleAnimator = [[XRCicleTransitionAnimation alloc] init];
+        cicleAnimator.reverse = YES;
+        return cicleAnimator;
+    }
+    
+    return nil;
+}
 
 @end

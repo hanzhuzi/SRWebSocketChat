@@ -18,9 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    [NSThread sleepForTimeInterval:1.0];
-    
-    self.navigationAnimation = [XRCicleTransitionAnimation new];
+    [NSThread sleepForTimeInterval:1.0];
     
     return YES;
 }
