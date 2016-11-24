@@ -13,7 +13,7 @@
 - (instancetype)init
 {
     if (self = [super init]) {
-        self.duration = 0.5; // 默认1.0s
+        self.duration = 1.0; // 默认1.0s
     }
     return self;
 }

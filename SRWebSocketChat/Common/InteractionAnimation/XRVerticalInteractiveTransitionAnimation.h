@@ -9,5 +9,5 @@
 #import "XRBaseInteractiveTransitionAnimation.h"
 
 @interface XRVerticalInteractiveTransitionAnimation : XRBaseInteractiveTransitionAnimation
-
+@property (nonatomic, assign) BOOL popOnRightToLeft;
 @end

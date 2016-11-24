@@ -38,6 +38,15 @@
         fromView.alpha = 0.0;
         toView.alpha = 1.0;
     } completion:^(BOOL finished) {
+        
+        if ([transitionContext transitionWasCancelled]) {
+            fromView.alpha = 1.0;
+            toView.alpha = 0.0;
+        }
+        else {
+            fromView.alpha = 0.0;
+            toView.alpha = 1.0;
+        }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
@@ -60,6 +69,18 @@
         fromView.alpha = 0.0;
         toView.alpha = 1.0;
     } completion:^(BOOL finished) {
+        if ([transitionContext transitionWasCancelled]) {
+            [UIView animateWithDuration:0.5 animations:^{
+                fromView.alpha = 1.0;
+                toView.alpha = 0.0;
+            }];
+        }
+        else {
+            [UIView animateWithDuration:0.5 animations:^{
+                fromView.alpha = 0.0;
+                toView.alpha = 1.0;
+            }];
+        }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }

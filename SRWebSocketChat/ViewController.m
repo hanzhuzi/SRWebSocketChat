@@ -31,6 +31,7 @@
 - (void)dealloc
 {
     self.chatManager.delegate = nil;
+    NSLog(@"%@ dealloc!", NSStringFromClass([self class]));
 }
 
 - (UIButton *)comingButton
@@ -52,7 +53,7 @@
 
 - (IBAction)loginAction:(id)sender {
     
-#if 1
+#if 0
     
     [loginButton setTitle:@"登录中..." forState:UIControlStateNormal];
     
@@ -74,9 +75,7 @@
     [self.chatManager openServer];  // 建立连接之后默认登录服务器
 #else
     SRChatViewController * chatViewCtrl = [SRChatViewController chatViewControllerWithRoomID:self.chatManager.userInfo.room_id];
-    chatViewCtrl.delegate = self;
-    chatViewCtrl.transitioningDelegate = self;
-    [self presentViewController:chatViewCtrl animated:YES completion:nil];
+    [self.navigationController pushViewController:chatViewCtrl animated:YES];
 #endif
 }
 

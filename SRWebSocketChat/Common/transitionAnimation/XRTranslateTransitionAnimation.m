@@ -48,6 +48,14 @@
         fromView.frame = CGRectMake(mainSize.width, 0, mainSize.width, mainSize.height);
         containerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.0];
     } completion:^(BOOL finished) {
+        if ([transitionContext transitionWasCancelled]) {
+            toView.frame = CGRectMake(-mainSize.width * 0.25, 0, mainSize.width, mainSize.height);
+            fromView.frame = CGRectMake(0, 0, mainSize.width, mainSize.height);
+        }
+        else {
+            toView.frame = CGRectMake(0, 0.0, mainSize.width, mainSize.height);
+            fromView.frame = CGRectMake(mainSize.width, 0, mainSize.width, mainSize.height);
+        }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }
@@ -73,6 +81,14 @@
         fromView.frame = CGRectMake(-mainSize.width, 0, mainSize.width, mainSize.height);
         containerView.backgroundColor = [[UIColor lightGrayColor] colorWithAlphaComponent:0.0];
     } completion:^(BOOL finished) {
+        if ([transitionContext transitionWasCancelled]) {
+            toView.frame = CGRectMake(mainSize.width * 0.75, 0.0, mainSize.width, mainSize.height);
+            fromView.frame = CGRectMake(0, 0, mainSize.width, mainSize.height);
+        }
+        else {
+            toView.frame = CGRectMake(0.0, 0.0, mainSize.width, mainSize.height);
+            fromView.frame = CGRectMake(-mainSize.width, 0, mainSize.width, mainSize.height);
+        }
         [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
     }];
 }

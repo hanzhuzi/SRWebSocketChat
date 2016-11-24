@@ -44,6 +44,7 @@
     self.inputToolBar.delegate = nil;
     self.inputToolBar = nil;
     self.chatManager.delegate = nil;
+    NSLog(@"%@ dealloc!", NSStringFromClass([self class]));
 }
 
 #pragma mark - initial
@@ -159,7 +160,7 @@
 
 - (void)backAction
 {
-    [self.delegate dismissViewController:self];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark  计算cell高度
@@ -268,6 +269,9 @@
     [self.view addSubview:self.myTableView];
     [self.view addSubview:self.inputToolBar];
     preOffSetY = -1000.0;
+    
+    UIScreenEdgePanGestureRecognizer * panGesture = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(backAction)];
+    [self.view addGestureRecognizer:panGesture];
 }
 
 - (void)viewWillAppear:(BOOL)animated

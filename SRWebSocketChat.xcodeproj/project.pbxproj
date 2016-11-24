@@ -47,6 +47,8 @@
 		01556D211D23800000291A99 /* chat_recive_press_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01556D1D1D23800000291A99 /* chat_recive_press_pic@2x.png */; };
 		01556D221D23800000291A99 /* chat_send_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01556D1E1D23800000291A99 /* chat_send_nor@2x.png */; };
 		01556D231D23800000291A99 /* chat_send_press_pic@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 01556D1F1D23800000291A99 /* chat_send_press_pic@2x.png */; };
+		0156844B1DD1A8ED00A4017F /* CEFlipAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0156844A1DD1A8ED00A4017F /* CEFlipAnimationController.m */; };
+		0156844E1DD1BAEF00A4017F /* CEReversibleAnimationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0156844D1DD1BAEF00A4017F /* CEReversibleAnimationController.m */; };
 		016087051D1BFDE30037C772 /* SRChatInputToolBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 016087041D1BFDE30037C772 /* SRChatInputToolBar.m */; };
 		0182A1361D212677008A359E /* SRChatTextMessageRightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0182A1351D212677008A359E /* SRChatTextMessageRightCell.m */; };
 		01A4FD801D3CC5F3004CED5B /* ViewController1.m in Sources */ = {isa = PBXBuildFile; fileRef = 01A4FD7F1D3CC5F3004CED5B /* ViewController1.m */; };
@@ -186,6 +188,10 @@
 		01556D1D1D23800000291A99 /* chat_recive_press_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_recive_press_pic@2x.png"; sourceTree = "<group>"; };
 		01556D1E1D23800000291A99 /* chat_send_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_send_nor@2x.png"; sourceTree = "<group>"; };
 		01556D1F1D23800000291A99 /* chat_send_press_pic@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "chat_send_press_pic@2x.png"; sourceTree = "<group>"; };
+		015684491DD1A8ED00A4017F /* CEFlipAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEFlipAnimationController.h; sourceTree = "<group>"; };
+		0156844A1DD1A8ED00A4017F /* CEFlipAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEFlipAnimationController.m; sourceTree = "<group>"; };
+		0156844C1DD1BAEF00A4017F /* CEReversibleAnimationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEReversibleAnimationController.h; sourceTree = "<group>"; };
+		0156844D1DD1BAEF00A4017F /* CEReversibleAnimationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEReversibleAnimationController.m; sourceTree = "<group>"; };
 		016087031D1BFDE30037C772 /* SRChatInputToolBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRChatInputToolBar.h; sourceTree = "<group>"; };
 		016087041D1BFDE30037C772 /* SRChatInputToolBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRChatInputToolBar.m; sourceTree = "<group>"; };
 		016A31501D1D083C008AB890 /* SRWebSocketConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SRWebSocketConfig.h; sourceTree = "<group>"; };
@@ -344,6 +350,10 @@
 		013CB5C91D250260000ACB96 /* transitionAnimation */ = {
 			isa = PBXGroup;
 			children = (
+				0156844C1DD1BAEF00A4017F /* CEReversibleAnimationController.h */,
+				0156844D1DD1BAEF00A4017F /* CEReversibleAnimationController.m */,
+				015684491DD1A8ED00A4017F /* CEFlipAnimationController.h */,
+				0156844A1DD1A8ED00A4017F /* CEFlipAnimationController.m */,
 				01F3FAEF1D460BBC00D5AA65 /* XRMoveTransitionData.h */,
 				01F3FAF01D460BBC00D5AA65 /* XRMoveTransitionData.m */,
 				010BA21F1D26191F00C6E1E3 /* XRBaseTransitionAnimation.h */,
@@ -911,6 +921,7 @@
 				014F0A741D1A92F200C4CA0A /* SRIOConsumer.m in Sources */,
 				01F6B18A1D21085D00B8E032 /* MKAnnotationView+WebCache.m in Sources */,
 				014F0A1C1D1A91A400C4CA0A /* ViewController.m in Sources */,
+				0156844E1DD1BAEF00A4017F /* CEReversibleAnimationController.m in Sources */,
 				014F0A9C1D1A976B00C4CA0A /* SRChatTextMessage.m in Sources */,
 				01F6B1981D21085D00B8E032 /* UIImageView+WebCache.m in Sources */,
 				01F6B1371D20C93300B8E032 /* NSString+Extension.m in Sources */,
@@ -938,6 +949,7 @@
 				01F6B18E1D21085D00B8E032 /* SDWebImageDecoder.m in Sources */,
 				01F6B1671D21076F00B8E032 /* TTTAttributedLabel.m in Sources */,
 				014F0A191D1A91A400C4CA0A /* AppDelegate.m in Sources */,
+				0156844B1DD1A8ED00A4017F /* CEFlipAnimationController.m in Sources */,
 				01EBEC3A1D27A3560065FED1 /* XRCicleTransitionAnimation.m in Sources */,
 				014F0A951D1A96A800C4CA0A /* SRChatManager.m in Sources */,
 				01F6B1631D21073E00B8E032 /* ViewController+MASAdditions.m in Sources */,

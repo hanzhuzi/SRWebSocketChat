@@ -17,8 +17,10 @@
 #import "XRCicleTransitionAnimation.h"
 #import "ViewController.h"
 
-@interface XRCicleTransitionAnimation ()
+@interface XRCicleTransitionAnimation ()<CAAnimationDelegate>
 @property (nonatomic, strong) id<UIViewControllerContextTransitioning> transitonCtx;
+@property (nonatomic, strong) UIView * fromView;
+@property (nonatomic, strong) UIView * toView;
 @end
 
 @implementation XRCicleTransitionAnimation
@@ -50,8 +52,10 @@
     self.transitonCtx = transitionContext;
     UIView * containerView = [transitionContext containerView];
     containerView.backgroundColor = [UIColor lightGrayColor];
-    
     [containerView addSubview:fromView];
+    
+    self.fromView = fromView;
+    
     __weak __typeof(self) weakSelf = self;
     if (fromVC && [fromVC isKindOfClass:[ViewController class]]) {
         UIButton * chatButton = ((ViewController *)fromVC).comingButton;
@@ -94,6 +98,7 @@
     containerView.backgroundColor = [UIColor lightGrayColor];
     [containerView addSubview:toView];
     [containerView addSubview:fromView];
+    self.fromView = fromView;
     
     if (toVC &&  [toVC isKindOfClass:[ViewController class]]) {
         UIButton * chatButton = ((ViewController *)toVC).comingButton;
@@ -134,6 +139,7 @@
 {
     [self.transitonCtx completeTransition:![self.transitonCtx transitionWasCancelled]];
     [self.transitonCtx viewControllerForKey:UITransitionContextToViewControllerKey].view.layer.mask = nil;
+    [self.fromView removeFromSuperview];
 }
 
 @end

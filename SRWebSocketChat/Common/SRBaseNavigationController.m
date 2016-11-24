@@ -8,11 +8,16 @@
 
 #import "SRBaseNavigationController.h"
 #import "XRCicleTransitionAnimation.h"
+#import "XRTranslateTransitionAnimation.h"
 #import "ViewController.h"
 #import "SRChatViewController.h"
+#import "XRVerticalInteractiveTransitionAnimation.h"
+#import "CEFlipAnimationController.h"
+#import "XRFadeTransitionAnimation.h"
 
-@interface SRBaseNavigationController ()<UINavigationControllerDelegate>
-
+@interface SRBaseNavigationController ()<UINavigationControllerDelegate, UIGestureRecognizerDelegate>
+@property (nonatomic, strong) XRVerticalInteractiveTransitionAnimation * interactiveTransitionAnimator;
+@property (nonatomic, strong) UIViewController * currentViewCtrl;
 @end
 
 @implementation SRBaseNavigationController
@@ -25,6 +30,8 @@
     self.navigationBar.titleTextAttributes = @{NSFontAttributeName : TextSystemFontWithSize(18.0), NSForegroundColorAttributeName : ColorWithRGB(255, 255, 255)};
     self.navigationBar.translucent = YES;
     self.delegate = self;
+//    self.interactivePopGestureRecognizer.delegate = self;
+    self.interactiveTransitionAnimator = [[XRVerticalInteractiveTransitionAnimation alloc] init];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -40,7 +47,35 @@
     [self setupNavigationBar];
 }
 
+//- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
+//    
+//    if ([self.currentViewCtrl isKindOfClass:[SRChatViewController class]]) {
+//        return NO;
+//    }
+//    return YES;
+//}
+
 #pragma mark - UINavigationControllerDelegate
+
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    [self wirePopInteractionControllerTo:viewController];
+}
+
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated {
+    
+    self.currentViewCtrl = viewController;
+}
+
+- (void)wirePopInteractionControllerTo:(UIViewController *)viewController
+{
+    // when a push occurs, wire the interaction controller to the to- view controller
+    if (!self.interactiveTransitionAnimator) {
+        return;
+    }
+    
+    [self.interactiveTransitionAnimator wireToViewController:viewController withOperation:XRInteractiveOperationPop];
+}
 
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
 {
@@ -56,6 +91,11 @@
     }
     
     return nil;
+}
+
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController
+{
+    return self.interactiveTransitionAnimator && self.interactiveTransitionAnimator.interactiveWithProgress ? self.interactiveTransitionAnimator : nil;
 }
 
 @end

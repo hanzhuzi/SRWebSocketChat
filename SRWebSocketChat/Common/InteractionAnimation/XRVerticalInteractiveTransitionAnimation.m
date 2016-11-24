@@ -22,7 +22,7 @@ static const NSString * gestureKey = @"gestureKey";
     if (opt == XRInteractiveOperationTab) {
         @throw [NSException exceptionWithName:NSInternalInconsistencyException reason:@"tab not allowed use" userInfo:nil];
     }
-    
+    self.popOnRightToLeft = YES;
     self.operation = opt;
     _viewController = viewController;
     
@@ -55,54 +55,72 @@ static const NSString * gestureKey = @"gestureKey";
 - (void)handlePanGesture:(UIPanGestureRecognizer *)panGes
 {
     CGPoint translation = [panGes translationInView:panGes.view.superview];
+    CGPoint vel = [panGes velocityInView:panGes.view];
     
     switch (panGes.state) {
-        case UIGestureRecognizerStateBegan:
-        {
-            BOOL topToBottom = translation.y > 0;
+        case UIGestureRecognizerStateBegan: {
+            
+            BOOL rightToLeftSwipe = vel.x < 0;
+            
+            // perform the required navigation operation ...
+            
             if (self.operation == XRInteractiveOperationPop) {
-                if (topToBottom) {
+                // for pop operation, fire on right-to-left
+                if ((self.popOnRightToLeft && rightToLeftSwipe) ||
+                    (!self.popOnRightToLeft && !rightToLeftSwipe)) {
                     self.interactiveWithProgress = YES;
                     [_viewController.navigationController popViewControllerAnimated:YES];
                 }
-            }
-            else {
-                // disMiss
+            } else if (self.operation == XRInteractiveOperationTab) {
+                // for tab controllers, we need to determine which direction to transition
+                if (rightToLeftSwipe) {
+                    if (_viewController.tabBarController.selectedIndex < _viewController.tabBarController.viewControllers.count - 1) {
+                        self.interactiveWithProgress = YES;
+                        _viewController.tabBarController.selectedIndex++;
+                    }
+                    
+                } else {
+                    if (_viewController.tabBarController.selectedIndex > 0) {
+                        self.interactiveWithProgress = YES;
+                        _viewController.tabBarController.selectedIndex--;
+                    }
+                }
+            } else {
+                // for dismiss, fire regardless of the translation direction
                 self.interactiveWithProgress = YES;
                 [_viewController dismissViewControllerAnimated:YES completion:nil];
             }
-        }
             break;
-        case UIGestureRecognizerStateChanged:
-        {
+        }
+        case UIGestureRecognizerStateChanged: {
             if (self.interactiveWithProgress) {
-                CGFloat fraction = translation.y / 200.0;
+                // compute the current position
+                CGFloat fraction = fabs(translation.x / 200.0);
                 fraction = fminf(fmaxf(fraction, 0.0), 1.0);
-                _shouldComplate = fraction > 0.5;
+                _shouldComplate = (fraction > 0.5);
                 
-                // 如果 interactive transiton 是100%，那么动画将不会完成，转场也不会完成。
-                if (fraction > 1.0) {
-                    fraction = 0.999;
-                }
+                // if an interactive transitions is 100% completed via the user interaction, for some reason
+                // the animation completion block is not called, and hence the transition is not completed.
+                // This glorious hack makes sure that this doesn't happen.
+                // see: https://github.com/ColinEberhardt/VCTransitionsLibrary/issues/4
+                if (fraction >= 1.0)
+                    fraction = 0.99;
                 
                 [self updateInteractiveTransition:fraction];
             }
-        }
             break;
-        
+        }
         case UIGestureRecognizerStateEnded:
         case UIGestureRecognizerStateCancelled:
-        {
             if (self.interactiveWithProgress) {
                 self.interactiveWithProgress = NO;
                 if (!_shouldComplate || panGes.state == UIGestureRecognizerStateCancelled) {
-                    [self cancelInteractiveTransition]; // 取消此次转场
+                    [self cancelInteractiveTransition];
                 }
                 else {
                     [self finishInteractiveTransition];
                 }
             }
-        }
             break;
         default:
             break;
